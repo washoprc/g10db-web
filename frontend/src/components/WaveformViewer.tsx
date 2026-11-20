@@ -81,8 +81,12 @@ export default function WaveformViewer({ shotNo }: WaveformViewerProps) {
       </div>
       {busy && <p>読み込み中…</p>}
       {error && <p className="error">{error}</p>}
+      {data?.note && (
+        <p className={data.demoMode ? "warnNote" : "note"} role="status">
+          {data.note}
+        </p>
+      )}
       {data && !busy && <WaveformChart data={data} />}
-      {data?.note && <p className="note">{data.note}</p>}
     </section>
   );
 }

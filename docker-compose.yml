@@ -22,7 +22,7 @@ services:
       FTP_PORT: ${FTP_PORT:-21}
       FTP_USER: ${FTP_USER:-}
       FTP_PASSWORD: ${FTP_PASSWORD:-}
-      FTP_BASE_PATH: ${FTP_BASE_PATH:-/G10DATA}
+      FTP_BASE_PATH: ${FTP_BASE_PATH:-/usr2/shot}
       FTP_TIMEOUT_SEC: ${FTP_TIMEOUT_SEC:-30}
     volumes:
       - ./config:/app/config:ro

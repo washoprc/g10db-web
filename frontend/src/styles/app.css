@@ -335,6 +335,16 @@ tbody tr {
   color: var(--muted);
 }
 
+.warnNote {
+  margin: 0.5rem 0 0.75rem;
+  padding: 0.65rem 0.85rem;
+  border-left: 3px solid #b45309;
+  background: rgba(180, 83, 9, 0.08);
+  color: #7c2d12;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
 .error {
   color: var(--danger);
 }

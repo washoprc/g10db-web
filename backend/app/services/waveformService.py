@@ -1,9 +1,9 @@
 """波形取得サービス（Ha / DM / NL / VCC）。
 
 処理順:
-1. DATA_ROOT 上のローカルファイル
-2. FTP 取得（設定時）→ readshot パース → 診断後処理
-3. デモ合成波形（USE_DEMO=1 またはフォールバック）
+1. DATA_ROOT / ftp_cache 上のローカル・ポートファイル
+2. FTP 取得（kasumi: `/usr2/shot/{shot}/{port}`）→ readshot パース → 診断後処理
+3. デモ合成波形（USE_DEMO=1、または USE_DEMO=0 で FTP 失敗時は note 付き）
 
 任意 SQL は使わない。
 """
@@ -25,10 +25,19 @@ from app.models.schemas import (
 )
 from app.services import ftpClient
 from app.services.configLoader import loadGroupList, loadTableList
-from app.services.processors import processTrace
+from app.services.portResolver import resolvePorts
+from app.services.processors import loadHaDetectorMeta, processTrace
 from app.services.readshot import parseReadshot
 
 logger = logging.getLogger(__name__)
+
+FTP_SETUP_NOTE = (
+    "FTP からポートファイルを取得できなかったためデモ波形を返しています。"
+    "本番表示には .env で USE_DEMO=0 とし、"
+    "FTP_HOST=130.158.92.4 / FTP_USER=mwls / FTP_PASSWORD=… / "
+    "FTP_BASE_PATH=/usr2/shot を設定してください"
+    "（パスは /usr2/shot/{shot}/{port}、拡張子・Ha/DM サブディレクトリなし）。"
+)
 
 
 def resolveKindMeta(kind: WaveformKind) -> dict[str, str]:
@@ -67,7 +76,7 @@ def channelNamesFor(kind: WaveformKind) -> list[str]:
 
 
 def ftpDirFor(kind: WaveformKind) -> str:
-    """FTP 上の診断ディレクトリ名。"""
+    """互換用: 旧サブディレクトリ名（kasumi 本番パスでは未使用）。"""
     groups = loadGroupList().get("groups", [])
     for group in groups:
         if group.get("id") == kind and group.get("ftpDir"):
@@ -102,8 +111,25 @@ def demoSeries(kind: WaveformKind, startMs: float, endMs: float) -> list[Wavefor
     return series
 
 
+def findLocalPortFile(shotNo: int, portName: str) -> Path | None:
+    """DATA_ROOT / ftp_cache 上のポートファイルを探す（拡張子なし優先）。"""
+    if not portName:
+        return None
+    root = getSettings().dataRoot
+    candidates = [
+        root / "ftp_cache" / str(shotNo) / portName,
+        root / str(shotNo) / portName,
+        root / "ftp_cache" / str(shotNo) / f"{portName}.dat",
+        root / str(shotNo) / f"{portName}.dat",
+    ]
+    for path in candidates:
+        if path.is_file() and path.stat().st_size > 0:
+            return path
+    return None
+
+
 def findLocalChannelFiles(shotNo: int, kind: WaveformKind, channel: str) -> list[Path]:
-    """DATA_ROOT 配下の候補パスを列挙する。"""
+    """DATA_ROOT 配下の旧レイアウト候補パスを列挙する。"""
     root = getSettings().dataRoot
     shotDir = root / str(shotNo)
     candidates = [
@@ -117,23 +143,102 @@ def findLocalChannelFiles(shotNo: int, kind: WaveformKind, channel: str) -> list
     return [p for p in candidates if p.is_file() and p.stat().st_size > 0]
 
 
+def _seriesFromTrace(
+    name: str,
+    unit: str,
+    processed,
+) -> WaveformSeries | None:
+    """後処理済みトレースから WaveformSeries を作る。"""
+    points = [
+        WaveformPoint(t=float(t), v=float(v))
+        for t, v in zip(processed.timesMs, processed.values, strict=True)
+        if math.isfinite(float(t)) and math.isfinite(float(v))
+    ]
+    if not points:
+        return None
+    return WaveformSeries(name=name, unit=unit, points=points)
+
+
 def loadProcessedSeries(
     shotNo: int,
     kind: WaveformKind,
     startMs: float,
     endMs: float,
 ) -> list[WaveformSeries] | None:
-    """ローカル／FTP からチャネルを読み、後処理して返す。"""
+    """ローカル／FTP からポートを読み、後処理して返す。"""
     meta = resolveKindMeta(kind)
     names = channelNamesFor(kind)
     series: list[WaveformSeries] = []
 
-    # 必要なら FTP で不足分を埋める
-    missing = [name for name in names if not findLocalChannelFiles(shotNo, kind, name)]
-    if missing and ftpClient.isFtpConfigured() and not getSettings().useDemo:
-        ftpClient.fetchShotFiles(shotNo, ftpDirFor(kind), missing)
-
+    # 必要ポートを集約して FTP 一括取得
+    neededPorts: list[str] = []
     for name in names:
+        for port in resolvePorts(kind, name, shotNo):
+            if port not in neededPorts and findLocalPortFile(shotNo, port) is None:
+                neededPorts.append(port)
+
+    if neededPorts and ftpClient.isFtpConfigured() and not getSettings().useDemo:
+        ftpClient.fetchPortFiles(shotNo, neededPorts)
+
+    seenVcc = False
+    for name in names:
+        ports = resolvePorts(kind, name, shotNo)
+        haMeta = loadHaDetectorMeta(name, shotNo) if kind == "Ha" else None
+        defaultDt = haMeta.sampMs if haMeta is not None else 1.0
+
+        loadedFromPorts = False
+        if ports:
+            # VCC は同一ポートを多重表示しない
+            if kind == "VCC":
+                if seenVcc:
+                    continue
+                seenVcc = True
+
+            for channelIndex, port in enumerate(ports):
+                path = findLocalPortFile(shotNo, port)
+                if path is None and ftpClient.isFtpConfigured() and not getSettings().useDemo:
+                    path = ftpClient.fetchPortFile(shotNo, port)
+                if path is None:
+                    continue
+                trace = parseReadshot(
+                    path,
+                    startMs=startMs if kind != "Ha" or haMeta is None else -1e9,
+                    endMs=endMs if kind != "Ha" or haMeta is None else 1e9,
+                    defaultDtMs=defaultDt,
+                )
+                if trace is None or len(trace.values) == 0:
+                    continue
+                # Ha CAMAC は applyHaCamac 内で時間軸を trig/samp で再構築するため
+                # パース時は全点読み、後で窓切りする
+                processed = processTrace(
+                    kind,
+                    name,
+                    trace,
+                    shotNo=shotNo,
+                    channelIndex=channelIndex,
+                    haMeta=haMeta,
+                )
+                if kind == "Ha" and haMeta is not None:
+                    mask = (processed.timesMs >= startMs) & (processed.timesMs <= endMs)
+                    from app.services.readshot import ShotTrace
+
+                    processed = ShotTrace(
+                        timesMs=processed.timesMs[mask],
+                        values=processed.values[mask],
+                        source=processed.source,
+                    )
+                seriesName = port if kind == "VCC" else (
+                    f"{name}:{port}" if len(ports) > 1 else name
+                )
+                item = _seriesFromTrace(seriesName, meta["unit"], processed)
+                if item:
+                    series.append(item)
+                    loadedFromPorts = True
+
+        if loadedFromPorts:
+            continue
+
+        # ポート未取得時は旧レイアウトのローカルファイルを試す
         files = findLocalChannelFiles(shotNo, kind, name)
         if not files:
             continue
@@ -141,13 +246,9 @@ def loadProcessedSeries(
         if trace is None or len(trace.values) == 0:
             continue
         processed = processTrace(kind, name, trace, shotNo=shotNo)
-        points = [
-            WaveformPoint(t=float(t), v=float(v))
-            for t, v in zip(processed.timesMs, processed.values, strict=True)
-            if math.isfinite(float(t)) and math.isfinite(float(v))
-        ]
-        if points:
-            series.append(WaveformSeries(name=name, unit=meta["unit"], points=points))
+        item = _seriesFromTrace(name, meta["unit"], processed)
+        if item:
+            series.append(item)
 
     return series if series else None
 
@@ -180,7 +281,7 @@ def getWaveform(
 
     note = None
     if not settings.useDemo:
-        note = "データファイル／FTP 取得に失敗したためデモ波形を返しています"
+        note = FTP_SETUP_NOTE
     return WaveformResponse(
         shotNo=shotNo,
         kind=kind,
@@ -195,10 +296,14 @@ def getWaveform(
 def summarizeKind(kind: WaveformKind) -> dict[str, object]:
     """診断種別の設定サマリ（デバッグ／UI 用）。"""
     meta = resolveKindMeta(kind)
+    channels = channelNamesFor(kind)
+    portMap = {ch: resolvePorts(kind, ch, None) for ch in channels}
     return {
         "kind": kind,
         "label": meta["label"],
         "unit": meta["unit"],
-        "channels": channelNamesFor(kind),
+        "channels": channels,
+        "ports": portMap,
+        "ftpBasePath": str(getSettings().ftpBasePath),
         "ftpDir": ftpDirFor(kind),
     }

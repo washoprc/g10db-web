@@ -29,7 +29,7 @@ docker-compose.yml
 
 ```bash
 cp .env.example .env
-# そのまま USE_DEMO=1 で UI 確認可。実 DB なら USE_DEMO=0 と DB_* / FTP_* を設定
+# そのまま USE_DEMO=1 で UI 確認可。実 DB / 波形なら USE_DEMO=0 と DB_* / FTP_* を設定
 docker compose up -d --build
 ```
 
@@ -38,6 +38,27 @@ API docs: http://localhost:8080/docs
 Health: http://localhost:8080/api/health  
 
 127.0.0.0/8 からのアクセスは Basic 認証スキップです。
+
+### 波形（本番・kasumi FTP）
+
+`USE_DEMO=0` のとき、波形は kasumi 上のポートファイルから取得します。
+
+| 項目 | 値 |
+| --- | --- |
+| ホスト | `FTP_HOST=130.158.92.4` |
+| ユーザ | `FTP_USER=mwls` |
+| パスワード | `FTP_PASSWORD`（`.env` のみ・コミット禁止） |
+| ベースパス | `FTP_BASE_PATH=/usr2/shot` |
+| リモートパス | `/usr2/shot/{shotNo}/{port}`（**拡張子なし**、Ha/DM サブディレクトリなし） |
+
+ポート名の解決:
+
+- **Ha**: `config/Ha_coef/{detector}/port.txt`（ショット適合 / read_fit_shot）
+- **NL**: `config/NL/{channel}.txt` の channelA / channelB
+- **DM**: `DM_CC` → `DMC500`、`DM_A` → `DMC600`
+- **VCC**: `VCCC00`
+
+バイナリは CAMAC readshot 互換（160 バイトヘッダ + BE uint16/uint8）。取得失敗時はデモ波形にフォールバックし、日本語の設定案内 `note` を返します。
 
 ### 学内 Docker（nginx-proxy + shared）
 

@@ -31,7 +31,7 @@ class Settings(BaseSettings):
     ftpPort: int = 21
     ftpUser: str = ""
     ftpPassword: str = ""
-    ftpBasePath: str = "/G10DATA"
+    ftpBasePath: str = "/usr2/shot"
     ftpTimeoutSec: int = 30
 
     @property
@@ -73,7 +73,7 @@ class SettingsLoader(BaseSettings):
     FTP_PORT: int = 21
     FTP_USER: str = ""
     FTP_PASSWORD: str = ""
-    FTP_BASE_PATH: str = "/G10DATA"
+    FTP_BASE_PATH: str = "/usr2/shot"
     FTP_TIMEOUT_SEC: int = 30
 
     def toSettings(self) -> Settings:
