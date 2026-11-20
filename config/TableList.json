@@ -23,10 +23,7 @@
       "label": "Diamagnetism",
       "filePattern": "{shotNo}/DM/{channel}.dat",
       "channels": [
-        "DM_CC",
-        "DM_A",
-        "DM_Barrier",
-        "DM_Plug"
+        "DM_CC"
       ]
     },
     {
@@ -43,10 +40,7 @@
       "label": "VCC",
       "filePattern": "{shotNo}/VCC/{channel}.dat",
       "channels": [
-        "VCC1",
-        "VCC2",
-        "VCC3",
-        "VCC4"
+        "VCC1"
       ]
     }
   ],
@@ -111,10 +105,7 @@
       "id": "DM",
       "kind": "DM",
       "channels": [
-        "DM_CC",
-        "DM_A",
-        "DM_Barrier",
-        "DM_Plug"
+        "DM_CC"
       ],
       "coefFile": null
     },
@@ -131,10 +122,7 @@
       "id": "VCC",
       "kind": "VCC",
       "channels": [
-        "VCC1",
-        "VCC2",
-        "VCC3",
-        "VCC4"
+        "VCC1"
       ],
       "coefFile": null
     }

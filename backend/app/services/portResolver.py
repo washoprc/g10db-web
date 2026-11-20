@@ -14,10 +14,10 @@ from pathlib import Path
 from app.services.configLoader import configRoot
 from app.services.processors import parseNlConfig, resolveHaDetectorDir
 
-# DM チャネル → kasumi ポート名
-DM_PORT_MAP: dict[str, str] = {
-    "DM_CC": "DMC500",
-    "DM_A": "DMC600",
+# DMGraph.php: DMCC は DMC500 + DMC600 のペア
+DM_PORT_PAIRS: dict[str, tuple[str, str]] = {
+    "DM_CC": ("DMC500", "DMC600"),
+    "DMCC": ("DMC500", "DMC600"),
 }
 
 # VCC は単一ポート
@@ -102,9 +102,18 @@ def resolveNlPorts(channel: str) -> list[str]:
     return []
 
 
+def resolveDmPorts(channel: str) -> list[str]:
+    """DM チャネルのポートペア（無ければ空）。"""
+    pair = DM_PORT_PAIRS.get(channel)
+    if pair is None:
+        return []
+    return [pair[0], pair[1]]
+
+
 def resolveDmPort(channel: str) -> str | None:
-    """DM チャネルの固定ポート名。未定義なら None。"""
-    return DM_PORT_MAP.get(channel)
+    """互換: DM の第 1 ポート名。未定義なら None。"""
+    ports = resolveDmPorts(channel)
+    return ports[0] if ports else None
 
 
 def resolveVccPort(_channel: str | None = None) -> str:
@@ -123,8 +132,7 @@ def resolvePorts(
     if kind == "NL":
         return resolveNlPorts(channel)
     if kind == "DM":
-        port = resolveDmPort(channel)
-        return [port] if port else []
+        return resolveDmPorts(channel)
     if kind == "VCC":
         return [resolveVccPort(channel)]
     return []

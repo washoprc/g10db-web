@@ -9,6 +9,20 @@ import ShotSearch, { type SearchMode } from "./components/ShotSearch";
 import ShotTable from "./components/ShotTable";
 import WaveformViewer from "./components/WaveformViewer";
 
+const WAVEFORM_PANEL_ID = "waveform-panel";
+
+/**
+ * 波形パネルへスクロールし、フォーカスを移す。
+ */
+function scrollToWaveformPanel() {
+  const panel = document.getElementById(WAVEFORM_PANEL_ID);
+  if (!panel) return;
+  panel.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (typeof panel.focus === "function") {
+    panel.focus({ preventScroll: true });
+  }
+}
+
 /**
  * g10db-web メイン画面。
  * ショット検索と波形表示を一つの画面にまとめる。
@@ -44,6 +58,15 @@ export default function App() {
     [],
   );
 
+  /** ショット番号リンク: 選択して波形パネルへ遷移する。 */
+  const handleSelectShot = useCallback((shotNo: number) => {
+    setSelectedShotNo(shotNo);
+    // 描画後にスクロール（同一ショット再クリックでも遷移）
+    window.requestAnimationFrame(() => {
+      scrollToWaveformPanel();
+    });
+  }, []);
+
   return (
     <div className="appShell">
       <header className="hero">
@@ -73,7 +96,7 @@ export default function App() {
               groupNames={result.groupNames}
               panels={result.panels}
               selectedShotNo={selectedShotNo}
-              onSelect={setSelectedShotNo}
+              onSelect={handleSelectShot}
             />
           ) : (
             <p className="empty">検索を実行してください。</p>

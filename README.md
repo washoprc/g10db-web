@@ -58,7 +58,14 @@ Health: http://localhost:8080/api/health
 - **DM**: `DM_CC` → `DMC500`、`DM_A` → `DMC600`
 - **VCC**: `VCCC00`
 
-バイナリは CAMAC readshot 互換（160 バイトヘッダ + BE uint16/uint8）。取得失敗時はデモ波形にフォールバックし、日本語の設定案内 `note` を返します。
+バイナリは CAMAC readshot 互換（160 バイトヘッダ + BE uint16/uint8）。後処理は TekeTekeKun 準拠です。
+
+- **Ha**: HaGraph 式 `(data-max-bg)/max*5000*coef`（coef は calc_1/calc_2）
+- **DM**: DMGraph 式（DMC500+DMC600 リップル補正→積分）
+- **NL**: NLupGraph2 式（2 ポート atan2 位相アンラップ）
+- **VCC**: VCCGraph 式（bipolar × camac_range/unit）
+
+取得失敗時はデモ波形にフォールバックし、`note` を返します。診断は `/api/waveforms/meta/status` と `/api/waveforms/{shotNo}/diagnose`。
 
 ### 学内 Docker（nginx-proxy + shared）
 
@@ -98,7 +105,7 @@ npm run dev
 | GET | `/api/shots/latest?limit=` | 最新ショット | `last.php` |
 | GET | `/api/shots/by-number?start=&limit=` | 番号以降 | `sn.php` |
 | GET | `/api/shots/by-date?date=&limit=` | 日付（無ければ最寄り） | `day.php` |
-| GET | `/api/waveforms/{shotNo}/{kind}` | Ha/DM/NL/VCC | TekeTekeKun |
+| GET | `/api/waveforms/{shotNo}/{kind}` | Ha/DM/NL/VCC（省略時窓は long: 50–400 / short: 50–250） | TekeTekeKun |
 | GET | `/api/waveforms/meta/config` | 設定サマリ | GroupList/TableList |
 
 `limit` は最大 **30**。任意 SQL エンドポイントはありません。

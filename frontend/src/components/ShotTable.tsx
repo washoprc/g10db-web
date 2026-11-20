@@ -80,15 +80,20 @@ function renderCell(
   onSelect: (shotNo: number) => void,
 ) {
   if (cell.isShotLink && cell.shotNo != null) {
+    const shotNo = cell.shotNo;
     return (
-      <button
+      <a
         key={cellIndex}
-        type="button"
         className="shotLink"
-        onClick={() => onSelect(cell.shotNo as number)}
+        href="#waveform-panel"
+        title={`ショット ${shotNo} の波形を表示`}
+        onClick={(event) => {
+          event.preventDefault();
+          onSelect(shotNo);
+        }}
       >
         {cell.text}
-      </button>
+      </a>
     );
   }
   return (

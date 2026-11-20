@@ -81,11 +81,14 @@ export type WaveformDiagnose = {
   useDemo: boolean;
   ftp: WaveformFtpStatus;
   ftpProbe: WaveformFtpProbe;
+  shotDirExists?: boolean | null;
   ports: Record<string, string[]>;
   fetchResults: Record<string, Record<string, unknown>>;
   parseResults: Record<string, Record<string, unknown>>;
   seriesCount: number;
   wouldUseDemo: boolean;
+  startMs?: number;
+  endMs?: number;
   fallbackNote?: string | null;
 };
 
@@ -123,15 +126,22 @@ export function fetchShotsByDate(
   return fetchJson(`/api/shots/by-date?date=${encodeURIComponent(date)}&limit=${limit}`);
 }
 
-/** 波形を取得する。 */
+/**
+ * 波形を取得する。
+ * start/end 省略時は API 側で TekeTekeKun 相当（50–gp3.time_e 等）を使う。
+ */
 export function fetchWaveform(
   shotNo: number,
   kind: WaveformKind,
-  startMs = 0,
-  endMs = 200,
+  startMs?: number,
+  endMs?: number,
 ): Promise<WaveformResponse> {
+  const params = new URLSearchParams();
+  if (startMs != null) params.set("startMs", String(startMs));
+  if (endMs != null) params.set("endMs", String(endMs));
+  const query = params.toString();
   return fetchJson(
-    `/api/waveforms/${shotNo}/${kind}?startMs=${startMs}&endMs=${endMs}`,
+    `/api/waveforms/${shotNo}/${kind}${query ? `?${query}` : ""}`,
   );
 }
 

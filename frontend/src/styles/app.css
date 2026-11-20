@@ -86,6 +86,12 @@ body {
 
 .waveformPanel {
   animation-delay: 0.18s;
+  scroll-margin-top: 1rem;
+  outline: none;
+}
+
+.waveformPanel:focus-visible {
+  box-shadow: var(--shadow), 0 0 0 2px rgba(11, 110, 79, 0.35);
 }
 
 fieldset {

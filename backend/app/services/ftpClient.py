@@ -49,8 +49,28 @@ def probeFtpConnection() -> dict[str, object]:
             base = settings.ftpBasePath.rstrip("/") or "/"
             ftp.cwd(base)
         return {"ok": True, "error": None}
-    except (OSError, ftplib.all_errors) as exc:
+    except ftplib.all_errors as exc:
+        # ftplib.all_errors は (Error, OSError, ...) のタプル。
+        # except (OSError, ftplib.all_errors) は TypeError になるので使わない。
         return {"ok": False, "error": str(exc)}
+
+
+def shotDirExists(shotNo: int) -> bool:
+    """kasumi 上に `/usr2/shot/{shotNo}` が存在するかを確認する。"""
+    settings = getSettings()
+    if not isFtpConfigured():
+        return False
+    remoteDir = f"{settings.ftpBasePath.rstrip('/')}/{shotNo}"
+    try:
+        with ftplib.FTP() as ftp:
+            ftp.connect(settings.ftpHost, settings.ftpPort, timeout=settings.ftpTimeoutSec)
+            ftp.login(settings.ftpUser, settings.ftpPassword)
+            ftp.set_pasv(True)
+            ftp.cwd(remoteDir)
+        return True
+    except ftplib.all_errors as exc:
+        logger.info("FTP shot dir miss %s: %s", remoteDir, exc)
+        return False
 
 
 def ensureLocalCacheDir(shotNo: int) -> Path:
@@ -98,7 +118,7 @@ def fetchPortFile(shotNo: int, portName: str) -> Path | None:
             return localPath
         localPath.unlink(missing_ok=True)
         return None
-    except (OSError, ftplib.all_errors) as exc:
+    except ftplib.all_errors as exc:
         logger.info("FTP miss %s: %s", remotePath, exc)
         localPath.unlink(missing_ok=True)
         return None
@@ -144,7 +164,7 @@ def fetchPortFiles(shotNo: int, portNames: list[str]) -> dict[str, Path]:
                 except ftplib.error_perm as exc:
                     logger.info("FTP miss %s: %s", remotePath, exc)
                     localPath.unlink(missing_ok=True)
-    except (OSError, ftplib.all_errors) as exc:
+    except ftplib.all_errors as exc:
         logger.warning("FTP fetch failed for shot %s: %s", shotNo, exc)
 
     return saved
