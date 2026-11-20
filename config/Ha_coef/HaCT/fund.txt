@@ -1,0 +1,4 @@
+direction, Y
+axial_position, 305
+H.V.
+170000, -700

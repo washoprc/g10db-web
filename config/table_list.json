@@ -1,0 +1,3701 @@
+[
+  {
+    "tableName": "main",
+    "fields": [
+      {
+        "fieldName": "shotno",
+        "displayName": "shotno",
+        "fieldType": "Integer",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "indexno",
+        "displayName": "indexno",
+        "fieldType": "Integer",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "datetime",
+        "displayName": "時刻",
+        "fieldType": "datetime",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "fixed",
+        "displayName": "fixed",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "ONOFF",
+        "comment": "1",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "nlscan_pos",
+        "displayName": "nlscan_pos",
+        "fieldType": "Short",
+        "defValue": "-999",
+        "hideValue": "-999",
+        "otherInf": "",
+        "comment": "1",
+        "header": "Y=",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment1",
+        "displayName": "comment1",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "1",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment2",
+        "displayName": "comment2",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "1",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment3",
+        "displayName": "comment3",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "1",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment4",
+        "displayName": "comment4",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "1",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment5",
+        "displayName": "comment5",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "1",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment6",
+        "displayName": "comment6",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "1",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "coil",
+    "fields": [
+      {
+        "fieldName": "auxiliary",
+        "displayName": "auxiliary",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "cr",
+        "displayName": "cr",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "CR ",
+        "footer": "",
+        "format": "2"
+      },
+      {
+        "fieldName": "rb",
+        "displayName": "rb",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "RB ",
+        "footer": "",
+        "format": "2"
+      },
+      {
+        "fieldName": "rt",
+        "displayName": "rt",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "RT ",
+        "footer": "",
+        "format": "2"
+      },
+      {
+        "fieldName": "ab",
+        "displayName": "ab",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "AB ",
+        "footer": "",
+        "format": "2"
+      },
+      {
+        "fieldName": "mr",
+        "displayName": "mr",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "MR ",
+        "footer": "",
+        "format": "2"
+      },
+      {
+        "fieldName": "ft",
+        "displayName": "ft",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "FT ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "duty",
+        "displayName": "duty",
+        "fieldType": "Short",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "min",
+        "format": ""
+      },
+      {
+        "fieldName": "trans",
+        "displayName": "trans",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "trans ",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "pg_e",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "pressure",
+        "displayName": "pressure",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "pfn",
+        "displayName": "pfn",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "1"
+      },
+      {
+        "fieldName": "puff",
+        "displayName": "puff",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "1"
+      },
+      {
+        "fieldName": "del",
+        "displayName": "del",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "pg_w",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "pressure",
+        "displayName": "pressure",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "pfn",
+        "displayName": "pfn",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "1"
+      },
+      {
+        "fieldName": "puff",
+        "displayName": "puff",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "1"
+      },
+      {
+        "fieldName": "del",
+        "displayName": "del",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "gp1",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "pressure",
+        "displayName": "pressure",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "a_w",
+        "displayName": "任意波形",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "ONOFF",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "a_w_text",
+        "displayName": "a_w_text",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "gp1b",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "pressure",
+        "displayName": "pressure",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "a_w",
+        "displayName": "任意波形",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "ONOFF",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "a_w_text",
+        "displayName": "a_w_text",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "gp1c",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "pressure",
+        "displayName": "pressure",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "a_w",
+        "displayName": "任意波形",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "ONOFF",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "a_w_text",
+        "displayName": "a_w_text",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "gp2",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "pressure",
+        "displayName": "pressure",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "a_w",
+        "displayName": "任意波形",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "ONOFF",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "a_w_text",
+        "displayName": "a_w_text",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "gp2b",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "pressure",
+        "displayName": "pressure",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "a_w",
+        "displayName": "任意波形",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "ONOFF",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "a_w_text",
+        "displayName": "a_w_text",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "gp2c",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "pressure",
+        "displayName": "pressure",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "a_w",
+        "displayName": "任意波形",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "ONOFF",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "a_w_text",
+        "displayName": "a_w_text",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "gp3",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "pressure",
+        "displayName": "pressure",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "a_w",
+        "displayName": "任意波形",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "ONOFF",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "a_w_text",
+        "displayName": "a_w_text",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "gp3b",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "pressure",
+        "displayName": "pressure",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "a_w",
+        "displayName": "任意波形",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "ONOFF",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "a_w_text",
+        "displayName": "a_w_text",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "gp4",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "pressure",
+        "displayName": "pressure",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "a_w",
+        "displayName": "任意波形",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "ONOFF",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "a_w_text",
+        "displayName": "a_w_text",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "gp4b",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "pressure",
+        "displayName": "pressure",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "a_w",
+        "displayName": "任意波形",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "ONOFF",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "a_w_text",
+        "displayName": "a_w_text",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "gp5",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "pressure",
+        "displayName": "pressure",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "a_w",
+        "displayName": "任意波形",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "ONOFF",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "a_w_text",
+        "displayName": "a_w_text",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "gp6",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "pressure",
+        "displayName": "pressure",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "a_w",
+        "displayName": "任意波形",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "ONOFF",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "a_w_text",
+        "displayName": "a_w_text",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "gp7",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "pressure",
+        "displayName": "pressure",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "a_w",
+        "displayName": "任意波形",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "ONOFF",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "a_w_text",
+        "displayName": "a_w_text",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "gp8",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "pressure",
+        "displayName": "pressure",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "a_w",
+        "displayName": "任意波形",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "ONOFF",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "a_w_text",
+        "displayName": "a_w_text",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "rf1_pa1",
+    "fields": [
+      {
+        "fieldName": "ew",
+        "displayName": "ew",
+        "fieldType": "String",
+        "defValue": "E",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "freq",
+        "displayName": "frequency",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "antenna",
+        "displayName": "antenna",
+        "fieldType": "String",
+        "defValue": "Type III",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "rise_time",
+        "displayName": "rise_time",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "tr ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "power",
+        "displayName": "power",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "sp_time",
+        "displayName": "sp_time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "sp ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "sp_power",
+        "displayName": "sp_power",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "sp ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "rf1_pa2",
+    "fields": [
+      {
+        "fieldName": "ew",
+        "displayName": "ew",
+        "fieldType": "String",
+        "defValue": "W",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "freq",
+        "displayName": "frequency",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "antenna",
+        "displayName": "antenna",
+        "fieldType": "String",
+        "defValue": "Type III",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "rise_time",
+        "displayName": "rise_time",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "tr ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "power",
+        "displayName": "power",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "sp_time",
+        "displayName": "sp_time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "sp ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "sp_power",
+        "displayName": "sp_power",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "sp ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "rf2_pa3",
+    "fields": [
+      {
+        "fieldName": "ew",
+        "displayName": "ew",
+        "fieldType": "String",
+        "defValue": "E",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "freq",
+        "displayName": "frequency",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "antenna",
+        "displayName": "antenna",
+        "fieldType": "String",
+        "defValue": "THA",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "rise_time",
+        "displayName": "rise_time",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "tr ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "power",
+        "displayName": "power",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "sp_time",
+        "displayName": "sp_time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "sp ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "sp_power",
+        "displayName": "sp_power",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "sp ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "rf2_pa4",
+    "fields": [
+      {
+        "fieldName": "ew",
+        "displayName": "ew",
+        "fieldType": "String",
+        "defValue": "W",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "freq",
+        "displayName": "frequency",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "antenna",
+        "displayName": "antenna",
+        "fieldType": "String",
+        "defValue": "Type II",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "rise_time",
+        "displayName": "rise_time",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "tr ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "power",
+        "displayName": "power",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "sp_time",
+        "displayName": "sp_time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "sp ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "sp_power",
+        "displayName": "sp_power",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "sp ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "rf3_pa5",
+    "fields": [
+      {
+        "fieldName": "ew",
+        "displayName": "ew",
+        "fieldType": "String",
+        "defValue": "W",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "freq",
+        "displayName": "frequency",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "antenna",
+        "displayName": "antenna",
+        "fieldType": "String",
+        "defValue": "Type II",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "rise_time",
+        "displayName": "rise_time",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "tr ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "power",
+        "displayName": "power",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "1"
+      },
+      {
+        "fieldName": "sp_time",
+        "displayName": "sp_time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "sp ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "sp_power",
+        "displayName": "sp_power",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "sp ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "a_w",
+        "displayName": "任意波形",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "ONOFF",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "a_w_text",
+        "displayName": "a_w_text",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "nbi_ae",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "energy",
+        "displayName": "energy",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": " kV",
+        "format": ""
+      },
+      {
+        "fieldName": "current",
+        "displayName": "current",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": " A",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "nbi_aw",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "energy",
+        "displayName": "energy",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": " kV",
+        "format": ""
+      },
+      {
+        "fieldName": "current",
+        "displayName": "current",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": " A",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "nbi_c",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "energy",
+        "displayName": "energy",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": " kV",
+        "format": ""
+      },
+      {
+        "fieldName": "current",
+        "displayName": "current",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": " A",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment1",
+        "displayName": "comment1",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "1",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "nbi_se",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "energy",
+        "displayName": "energy",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": " kV",
+        "format": ""
+      },
+      {
+        "fieldName": "current",
+        "displayName": "current",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": " A",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "nbi_sw",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "energy",
+        "displayName": "energy",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": " kV",
+        "format": ""
+      },
+      {
+        "fieldName": "current",
+        "displayName": "current",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": " A",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "nbi_pe",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "energy",
+        "displayName": "energy",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": " kV",
+        "format": ""
+      },
+      {
+        "fieldName": "current",
+        "displayName": "current",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": " A",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "nbi_pw",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "energy",
+        "displayName": "energy",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": " kV",
+        "format": ""
+      },
+      {
+        "fieldName": "current",
+        "displayName": "current",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": " A",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "ecrh_p1e",
+    "fields": [
+      {
+        "fieldName": "ps",
+        "displayName": "電源",
+        "fieldType": "String",
+        "defValue": "B ",
+        "hideValue": "B ",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "time1",
+        "displayName": "time1",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "time2",
+        "displayName": "time2",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "power",
+        "displayName": "power",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "mirror",
+        "displayName": "mirror",
+        "fieldType": "Float",
+        "defValue": "-1.0",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "ecrh_p1w",
+    "fields": [
+      {
+        "fieldName": "ps",
+        "displayName": "電源",
+        "fieldType": "String",
+        "defValue": "B ",
+        "hideValue": "B ",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "time1",
+        "displayName": "time1",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "time2",
+        "displayName": "time2",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "power",
+        "displayName": "power",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "mirror",
+        "displayName": "mirror",
+        "fieldType": "Float",
+        "defValue": "-1.0",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "ecrh_p2e",
+    "fields": [
+      {
+        "fieldName": "ps",
+        "displayName": "電源",
+        "fieldType": "String",
+        "defValue": "B ",
+        "hideValue": "B ",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "time1",
+        "displayName": "time1",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "time2",
+        "displayName": "time2",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "power",
+        "displayName": "power",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "ecrh_p2w",
+    "fields": [
+      {
+        "fieldName": "ps",
+        "displayName": "電源",
+        "fieldType": "String",
+        "defValue": "B ",
+        "hideValue": "B ",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "time1",
+        "displayName": "time1",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "time2",
+        "displayName": "time2",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "power",
+        "displayName": "power",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "ecrh_be",
+    "fields": [
+      {
+        "fieldName": "ps",
+        "displayName": "電源",
+        "fieldType": "String",
+        "defValue": "A ",
+        "hideValue": "A ",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "power",
+        "displayName": "power",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "ecrh_bw",
+    "fields": [
+      {
+        "fieldName": "ps",
+        "displayName": "電源",
+        "fieldType": "String",
+        "defValue": "A ",
+        "hideValue": "A ",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "power",
+        "displayName": "power",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "ecrh_c",
+    "fields": [
+      {
+        "fieldName": "antenna",
+        "displayName": "antenna",
+        "fieldType": "String",
+        "defValue": "fund-HE11-31.75-Eu",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "realval1",
+        "displayName": "T",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "T",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "realval2",
+        "displayName": "P",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "P",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "power",
+        "displayName": "power",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "ecrh_ae",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "power",
+        "displayName": "power",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "ecrh_aw",
+    "fields": [
+      {
+        "fieldName": "time",
+        "displayName": "time",
+        "fieldType": "Time",
+        "defValue": "0",
+        "hideValue": "0-0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "power",
+        "displayName": "power",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "ep",
+    "fields": [
+      {
+        "fieldName": "fg",
+        "displayName": "fg",
+        "fieldType": "SCBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "fg",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "cl",
+    "fields": [
+      {
+        "fieldName": "fg",
+        "displayName": "fg",
+        "fieldType": "SCBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "fg",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "br",
+    "fields": [
+      {
+        "fieldName": "fg",
+        "displayName": "fg",
+        "fieldType": "SCBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "fg",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "ap",
+    "fields": [
+      {
+        "fieldName": "fg",
+        "displayName": "fg",
+        "fieldType": "SCBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "fg",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "imt",
+    "fields": [
+      {
+        "fieldName": "fg",
+        "displayName": "fg",
+        "fieldType": "SCBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "fg",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "mlo1",
+    "fields": [
+      {
+        "fieldName": "fg",
+        "displayName": "fg",
+        "fieldType": "SCBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "fg",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "length",
+        "displayName": "挿入長",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "angle",
+        "displayName": "角度",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "mlo2",
+    "fields": [
+      {
+        "fieldName": "fg",
+        "displayName": "fg",
+        "fieldType": "SCBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "fg",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "length",
+        "displayName": "挿入長",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "angle",
+        "displayName": "角度",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "dmodule",
+    "fields": [
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "angle_upp",
+        "displayName": "angleU",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "angle_low",
+        "displayName": "angleL",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "backdoor",
+        "displayName": "BackDoor",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "tgt_upp_temp",
+        "displayName": "tmpU",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "tgt_low_temp",
+        "displayName": "tmpL",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": "0"
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "pt_inlet",
+    "fields": [
+      {
+        "fieldName": "gas",
+        "displayName": "gas",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "plenum",
+        "displayName": "plenum",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": " mbar",
+        "format": ""
+      },
+      {
+        "fieldName": "delay",
+        "displayName": "delay",
+        "fieldType": "Float",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "d ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "width",
+        "displayName": "width",
+        "fieldType": "Float",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "w ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "pt_imp",
+    "fields": [
+      {
+        "fieldName": "gas",
+        "displayName": "gas",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "plenum",
+        "displayName": "plenum",
+        "fieldType": "Float",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": " mbar",
+        "format": ""
+      },
+      {
+        "fieldName": "delay",
+        "displayName": "delay",
+        "fieldType": "Float",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "d ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "width",
+        "displayName": "width",
+        "fieldType": "Float",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "w ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "pt_upper",
+    "fields": [
+      {
+        "fieldName": "gas",
+        "displayName": "gas",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "plenum",
+        "displayName": "plenum",
+        "fieldType": "Float",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": " mbar",
+        "format": ""
+      },
+      {
+        "fieldName": "delay",
+        "displayName": "delay",
+        "fieldType": "Float",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "d ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "width",
+        "displayName": "width",
+        "fieldType": "Float",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "w ",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "status",
+        "displayName": "status",
+        "fieldType": "CBox",
+        "defValue": "0",
+        "hideValue": "-1",
+        "otherInf": "status",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  },
+  {
+    "tableName": "iris",
+    "fields": [
+      {
+        "fieldName": "fg",
+        "displayName": "fg",
+        "fieldType": "SCBox",
+        "defValue": "0",
+        "hideValue": "0",
+        "otherInf": "fg",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "diameter",
+        "displayName": "内径",
+        "fieldType": "Float",
+        "defValue": "0.0",
+        "hideValue": "0.0",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      },
+      {
+        "fieldName": "comment",
+        "displayName": "comment",
+        "fieldType": "String",
+        "defValue": "",
+        "hideValue": "",
+        "otherInf": "",
+        "comment": "0",
+        "header": "",
+        "footer": "",
+        "format": ""
+      }
+    ]
+  }
+]

@@ -1,0 +1,316 @@
+[
+  {
+    "groupName": "Main",
+    "weight": 3,
+    "tables": [
+      {
+        "name": "main",
+        "show": 0
+      }
+    ]
+  },
+  {
+    "groupName": "Coil",
+    "weight": 3,
+    "tables": [
+      {
+        "name": "coil",
+        "show": 0
+      }
+    ]
+  },
+  {
+    "groupName": "PG_E",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "pg_e",
+        "show": 0
+      }
+    ]
+  },
+  {
+    "groupName": "PG_W",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "pg_w",
+        "show": 0
+      }
+    ]
+  },
+  {
+    "groupName": "GP1a2a",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "gp1",
+        "show": 1
+      },
+      {
+        "name": "gp2",
+        "show": 1
+      }
+    ]
+  },
+  {
+    "groupName": "GP1b2b",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "gp1b",
+        "show": 1
+      },
+      {
+        "name": "gp2b",
+        "show": 1
+      }
+    ]
+  },
+  {
+    "groupName": "GP34",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "gp3",
+        "show": 1
+      },
+      {
+        "name": "gp4",
+        "show": 1
+      }
+    ]
+  },
+  {
+    "groupName": "GP56",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "gp5",
+        "show": 1
+      },
+      {
+        "name": "gp6",
+        "show": 1
+      }
+    ]
+  },
+  {
+    "groupName": "GP78",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "gp7",
+        "show": 1
+      },
+      {
+        "name": "gp8",
+        "show": 1
+      }
+    ]
+  },
+  {
+    "groupName": "a_NBI",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "nbi_ae",
+        "show": 1
+      },
+      {
+        "name": "nbi_aw",
+        "show": 1
+      }
+    ]
+  },
+  {
+    "groupName": "s_NBI",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "nbi_se",
+        "show": 1
+      },
+      {
+        "name": "nbi_sw",
+        "show": 1
+      }
+    ]
+  },
+  {
+    "groupName": "c_NBI",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "nbi_c",
+        "show": 0
+      }
+    ]
+  },
+  {
+    "groupName": "RF1",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "rf1_pa1",
+        "show": 0
+      },
+      {
+        "name": "rf1_pa2",
+        "show": 0
+      }
+    ]
+  },
+  {
+    "groupName": "RF2",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "rf2_pa3",
+        "show": 0
+      },
+      {
+        "name": "rf2_pa4",
+        "show": 0
+      }
+    ]
+  },
+  {
+    "groupName": "RF3",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "rf3_pa5",
+        "show": 0
+      }
+    ]
+  },
+  {
+    "groupName": "ECRH_pe",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "ecrh_p1e",
+        "show": 0
+      }
+    ]
+  },
+  {
+    "groupName": "ECRH_pw",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "ecrh_p1w",
+        "show": 0
+      }
+    ]
+  },
+  {
+    "groupName": "ECRH_be",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "ecrh_be",
+        "show": 0
+      }
+    ]
+  },
+  {
+    "groupName": "ECRH_bw",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "ecrh_bw",
+        "show": 0
+      }
+    ]
+  },
+  {
+    "groupName": "ECRH_c",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "ecrh_c",
+        "show": 0
+      }
+    ]
+  },
+  {
+    "groupName": "G/F",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "ep",
+        "show": 1
+      },
+      {
+        "name": "cl",
+        "show": 1
+      },
+      {
+        "name": "br",
+        "show": 1
+      },
+      {
+        "name": "imt",
+        "show": 1
+      }
+    ]
+  },
+  {
+    "groupName": "mlo",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "mlo1",
+        "show": 1
+      },
+      {
+        "name": "mlo2",
+        "show": 1
+      },
+      {
+        "name": "iris",
+        "show": 1
+      }
+    ]
+  },
+  {
+    "groupName": "dmod",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "dmodule",
+        "show": 1
+      }
+    ]
+  },
+  {
+    "groupName": "gas_Dmod",
+    "weight": 2,
+    "tables": [
+      {
+        "name": "pt_inlet",
+        "show": 1
+      },
+      {
+        "name": "pt_imp",
+        "show": 1
+      },
+      {
+        "name": "pt_upper",
+        "show": 1
+      }
+    ]
+  },
+  {
+    "groupName": "Comment",
+    "weight": 5,
+    "tables": [
+      {
+        "name": "main",
+        "show": 0
+      }
+    ]
+  }
+]

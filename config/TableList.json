@@ -1,0 +1,142 @@
+{
+  "source": "TableList.inf + TekeTekeKun",
+  "encodingSource": "CP932",
+  "convertedAt": "2026-11-20",
+  "note": "G10DB table_list.json は別途 config/table_list.json。本ファイルは波形チャネル。",
+  "tables": [
+    {
+      "id": "Ha",
+      "label": "Hα",
+      "filePattern": "{shotNo}/Ha/{channel}.dat",
+      "channels": [
+        "CT25",
+        "Dorami",
+        "HaCT",
+        "HaEB",
+        "HaIMT",
+        "HaWB",
+        "Hachinosu"
+      ]
+    },
+    {
+      "id": "DM",
+      "label": "Diamagnetism",
+      "filePattern": "{shotNo}/DM/{channel}.dat",
+      "channels": [
+        "DM_CC",
+        "DM_A",
+        "DM_Barrier",
+        "DM_Plug"
+      ]
+    },
+    {
+      "id": "NL",
+      "label": "Line density",
+      "filePattern": "{shotNo}/NL/{channel}.dat",
+      "channels": [
+        "NLCCNEW",
+        "NLEBNEW"
+      ]
+    },
+    {
+      "id": "VCC",
+      "label": "VCC",
+      "filePattern": "{shotNo}/VCC/{channel}.dat",
+      "channels": [
+        "VCC1",
+        "VCC2",
+        "VCC3",
+        "VCC4"
+      ]
+    }
+  ],
+  "detectors": [
+    {
+      "id": "CT25",
+      "kind": "Ha",
+      "channels": [
+        "CT25"
+      ],
+      "coefDir": "Ha_coef/CT25"
+    },
+    {
+      "id": "Dorami",
+      "kind": "Ha",
+      "channels": [
+        "Dorami"
+      ],
+      "coefDir": "Ha_coef/Dorami"
+    },
+    {
+      "id": "HaCT",
+      "kind": "Ha",
+      "channels": [
+        "HaCT"
+      ],
+      "coefDir": "Ha_coef/HaCT"
+    },
+    {
+      "id": "HaEB",
+      "kind": "Ha",
+      "channels": [
+        "HaEB"
+      ],
+      "coefDir": "Ha_coef/HaEB"
+    },
+    {
+      "id": "HaIMT",
+      "kind": "Ha",
+      "channels": [
+        "HaIMT"
+      ],
+      "coefDir": "Ha_coef/HaIMT"
+    },
+    {
+      "id": "HaWB",
+      "kind": "Ha",
+      "channels": [
+        "HaWB"
+      ],
+      "coefDir": "Ha_coef/HaWB"
+    },
+    {
+      "id": "Hachinosu",
+      "kind": "Ha",
+      "channels": [
+        "Hachinosu"
+      ],
+      "coefDir": "Ha_coef/Hachinosu"
+    },
+    {
+      "id": "DM",
+      "kind": "DM",
+      "channels": [
+        "DM_CC",
+        "DM_A",
+        "DM_Barrier",
+        "DM_Plug"
+      ],
+      "coefFile": null
+    },
+    {
+      "id": "NL",
+      "kind": "NL",
+      "channels": [
+        "NLCCNEW",
+        "NLEBNEW"
+      ],
+      "coefFile": "NL/NLCCNEW.txt"
+    },
+    {
+      "id": "VCC",
+      "kind": "VCC",
+      "channels": [
+        "VCC1",
+        "VCC2",
+        "VCC3",
+        "VCC4"
+      ],
+      "coefFile": null
+    }
+  ]
+}

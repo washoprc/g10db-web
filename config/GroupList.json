@@ -1,0 +1,53 @@
+{
+  "source": "GroupList.inf + TekeTekeKun/Ha_coef",
+  "encodingSource": "CP932",
+  "convertedAt": "2026-11-20",
+  "note": "G10DB group_list.json は別途 config/group_list.json。本ファイルは波形診断グループ。",
+  "groups": [
+    {
+      "id": "Ha",
+      "label": "Hα",
+      "unit": "a.u.",
+      "description": "水素バルマーα線放射",
+      "ftpDir": "Ha",
+      "processor": "ha",
+      "detectors": [
+        "CT25",
+        "Dorami",
+        "HaCT",
+        "HaEB",
+        "HaIMT",
+        "HaWB",
+        "Hachinosu"
+      ]
+    },
+    {
+      "id": "DM",
+      "label": "Diamagnetism",
+      "unit": "Wb",
+      "description": "反磁性ループ信号",
+      "ftpDir": "DM",
+      "processor": "dm"
+    },
+    {
+      "id": "NL",
+      "label": "Line density",
+      "unit": "m^-2",
+      "description": "線積分電子密度",
+      "ftpDir": "NL",
+      "processor": "nl",
+      "detectors": [
+        "NLCCNEW",
+        "NLEBNEW"
+      ]
+    },
+    {
+      "id": "VCC",
+      "label": "VCC",
+      "unit": "V",
+      "description": "垂直制御／関連電圧信号",
+      "ftpDir": "VCC",
+      "processor": "vcc"
+    }
+  ]
+}

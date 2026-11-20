@@ -1,0 +1,1 @@
+Intensity=Data*coef*const*ND/(amp*glass_trans)-BG
