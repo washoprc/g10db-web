@@ -96,9 +96,9 @@ cp -a /path/to/TekeTekeKun/Ha_coef/. config/Ha_coef/
 cp -a /path/to/TekeTekeKun/NL/. config/NL/
 ```
 
-> **注意:** この Cloud Agent の GitHub App トークンは `washoprc/g10db-web` のみアクセス可能で、
-> プライベートな `washoprc/g10db` は clone できませんでした。
-> `config/` には再構成した JSON と校正テンプレートを置き、実ファイルは上記スクリプトで上書きしてください。
+実データは `config/Ha_coef/`（HaCT / HaEB / HaWB 等）、`config/NL/`、
+`config/group_list.json` / `config/table_list.json`（G10DB 本体）に取り込み済みです。
+追加更新は `./scripts/syncFromLegacy.sh` または親エージェントの `g10db-web-config.tgz` で行います。
 
 ## 認証モデル
 

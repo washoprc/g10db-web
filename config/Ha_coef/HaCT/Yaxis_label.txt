@@ -1,0 +1,3 @@
+Intensity [uW/cm^2sr ?]
+50.0
+

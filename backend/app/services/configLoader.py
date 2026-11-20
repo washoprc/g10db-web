@@ -18,36 +18,46 @@ def configRoot() -> Path:
     return getSettings().configRoot
 
 
-def loadJson(name: str) -> dict[str, Any]:
+def loadJson(name: str) -> dict[str, Any] | list[Any]:
     """config 配下の JSON を読み込む。"""
     path = configRoot() / name
     if not path.exists():
         return {}
     with path.open(encoding="utf-8") as fp:
         data = json.load(fp)
+    if isinstance(data, (dict, list)):
+        return data
+    return {}
+
+
+def loadJsonObject(name: str) -> dict[str, Any]:
+    """オブジェクト JSON のみを返す（配列なら空 dict）。"""
+    data = loadJson(name)
     return data if isinstance(data, dict) else {}
 
 
 def loadGroupList() -> dict[str, Any]:
-    """診断グループ定義（旧 GroupList.inf）。"""
-    return loadJson("GroupList.json")
+    """診断グループ定義（波形用 GroupList.json）。"""
+    return loadJsonObject("GroupList.json")
 
 
 def loadTableList() -> dict[str, Any]:
-    """テーブル／チャネル定義（旧 TableList.inf）。"""
-    return loadJson("TableList.json")
+    """テーブル／チャネル定義（波形用 TableList.json）。"""
+    return loadJsonObject("TableList.json")
 
 
 def listHaCoefFiles() -> list[str]:
-    """Ha 校正係数ファイル名の一覧。"""
+    """Ha 校正エントリ（検出器ディレクトリ名 + 直下ファイル）の一覧。"""
     directory = configRoot() / "Ha_coef"
     if not directory.is_dir():
         return []
-    return sorted(
-        p.name
-        for p in directory.iterdir()
-        if p.is_file() and p.name.lower() not in {"readme.md", ".gitkeep"}
-    )
+    names: list[str] = []
+    for path in sorted(directory.iterdir()):
+        if path.name.lower() in {"readme.md", ".gitkeep"}:
+            continue
+        if path.is_dir() or path.is_file():
+            names.append(path.name)
+    return names
 
 
 def listNlFiles() -> list[str]:
@@ -64,10 +74,15 @@ def listNlFiles() -> list[str]:
 
 def describeConfig() -> dict[str, Any]:
     """フロント向けの設定サマリ。"""
+    g10Groups = loadJson("group_list.json")
+    g10Tables = loadJson("table_list.json")
     return {
         "groups": loadGroupList().get("groups", []),
         "tables": loadTableList().get("tables", []),
         "detectors": loadTableList().get("detectors", []),
         "haCoefFiles": listHaCoefFiles(),
         "nlFiles": listNlFiles(),
+        "g10dbGroupCount": len(g10Groups) if isinstance(g10Groups, list) else 0,
+        "g10dbTableCount": len(g10Tables) if isinstance(g10Tables, list) else 0,
+        "syncedFromLegacy": True,
     }

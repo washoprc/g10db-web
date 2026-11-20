@@ -1,9 +1,5 @@
 # NL
 
-旧 PHP `TekeTekeKun/NL/` の線密度校正・設定を配置する。
+旧 PHP `TekeTekeKun/NL/` から同期した実設定。
 
-```bash
-./scripts/syncFromLegacy.sh /path/to/g10db
-# または
-cp -a /path/to/g10db/TekeTekeKun/NL/. config/NL/
-```
+例: `NLCCNEW.txt`, `NLEBNEW.txt`

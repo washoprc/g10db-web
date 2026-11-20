@@ -1,4 +1,0 @@
-# サンプル NL 校正（デモ用）
-# channel,scale,offset
-NL_CC,1.0,0.0
-NL_A,1.0,0.0

@@ -140,7 +140,7 @@ def loadProcessedSeries(
         trace = parseReadshot(files[0], startMs=startMs, endMs=endMs)
         if trace is None or len(trace.values) == 0:
             continue
-        processed = processTrace(kind, name, trace)
+        processed = processTrace(kind, name, trace, shotNo=shotNo)
         points = [
             WaveformPoint(t=float(t), v=float(v))
             for t, v in zip(processed.timesMs, processed.values, strict=True)

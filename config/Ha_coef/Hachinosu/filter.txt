@@ -1,0 +1,9 @@
+shot_no,1,2,4,5,6,7,8,9,10,11,13,14
+170000,Ha-1,Ha-2,Ha-4,Ha-5,Ha-6,Ha-7,Ha-8,Ha-9,Ha-10,Ha-11,Ha-13,Ha-14
+195443,Hb-2,Hb-3,Hb-4,Hb-5,Hb-6,Hb-7,Ha-8,Ha-9,Ha-10,Ha-11,Ha-13,Ha-14
+195487,Ha-1,Ha-2,Ha-4,Ha-5,Ha-6,Ha-7,Ha-8,Ha-9,Ha-10,Ha-11,Ha-13,Ha-14
+195515,Hb-2,Hb-3,Hb-4,Hb-5,Hb-6,Ha-7,Ha-8,Ha-9,Ha-10,Ha-11,Ha-13,Ha-14
+195516,Hb-2,Hb-3,Hb-4,Hb-5,Hb-6,Hb-7,Ha-8,Ha-9,Ha-10,Ha-11,Ha-13,Ha-14
+196703,Ha-1,Ha-2,Ha-4,Ha-5,Ha-6,Ha-7,Ha-8,Ha-9,Ha-10,Ha-11,Ha-13,Ha-14
+196757,Hb-2,Hb-3,Hb-4,Hb-5,Hb-6,Hb-7,Ha-8,Ha-9,Ha-10,Ha-11,Ha-13,Ha-14
+201207,Ha-1,Ha-2,Ha-4,Ha-5,Ha-6,Ha-7,Ha-8,Ha-9,Ha-10,Ha-11,Ha-13,Ha-14

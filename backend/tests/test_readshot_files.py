@@ -29,7 +29,7 @@ def dataRoot(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
 def testLoadLocalHaWaveform(dataRoot: Path) -> None:
     """DATA_ROOT の Ha バイナリを読み後処理する。"""
     shotNo = 123456
-    channel = "Ha_CC"
+    channel = "HaCT"  # 実 Ha_coef 検出器名
     shotDir = dataRoot / str(shotNo) / "Ha"
     shotDir.mkdir(parents=True)
     nPoints = 50
