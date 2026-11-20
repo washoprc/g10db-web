@@ -1,0 +1,39 @@
+services:
+  api:
+    build: ./backend
+    environment:
+      DB_HOST: ${DB_HOST:-db}
+      DB_PORT: ${DB_PORT:-5432}
+      DB_NAME: ${DB_NAME:-gamma10_exp}
+      DB_USER: ${DB_USER:-prc}
+      DB_PASSWORD: ${DB_PASSWORD:-}
+      USE_DEMO: ${USE_DEMO:-1}
+      DATA_ROOT: /data
+      CONFIG_ROOT: /app/config
+      API_CORS_ORIGINS: "*"
+      MAX_SHOT_LIMIT: "30"
+    volumes:
+      - ./config:/app/config:ro
+      - ${DATA_ROOT:-./data}:/data:ro
+    expose:
+      - "8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: ./frontend
+    expose:
+      - "80"
+
+  nginx:
+    image: nginx:1.27-alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - api
+      - web

@@ -1,0 +1,5 @@
+# サンプル Hα 校正係数（デモ用）
+# channel,scale,offset
+Ha_CC,1.0,0.0
+Ha_E,1.05,0.0
+Ha_W,0.98,0.0

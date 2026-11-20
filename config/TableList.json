@@ -1,0 +1,22 @@
+{
+  "source": "TableList.inf",
+  "convertedAt": "2026-11-20",
+  "tables": [
+    {
+      "id": "Ha",
+      "channels": ["Ha_CC", "Ha_E", "Ha_W"]
+    },
+    {
+      "id": "DM",
+      "channels": ["DM_CC", "DM_A"]
+    },
+    {
+      "id": "NL",
+      "channels": ["NL_CC", "NL_A"]
+    },
+    {
+      "id": "VCC",
+      "channels": ["VCC1", "VCC2"]
+    }
+  ]
+}

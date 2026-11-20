@@ -1,0 +1,302 @@
+:root {
+  --bg0: #e8f1ef;
+  --bg1: #f7fbf9;
+  --ink: #132a2a;
+  --muted: #4d6460;
+  --accent: #0b6e4f;
+  --accent-2: #1b4965;
+  --line: rgba(19, 42, 42, 0.14);
+  --danger: #9b2226;
+  --panel: rgba(255, 255, 255, 0.72);
+  --shadow: 0 18px 40px rgba(19, 42, 42, 0.08);
+  --radius: 14px;
+  font-family: "IBM Plex Sans JP", "IBM Plex Sans", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, #cfe8df 0%, transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, #d7e4f0 0%, transparent 50%),
+    linear-gradient(180deg, var(--bg0), var(--bg1));
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+.appShell {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
+
+.hero {
+  margin-bottom: 1.75rem;
+  animation: rise 0.7s ease both;
+}
+
+.brand {
+  margin: 0 0 0.35rem;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+
+.hero h1 {
+  margin: 0 0 0.6rem;
+  font-size: clamp(1.15rem, 2.4vw, 1.55rem);
+  font-weight: 500;
+}
+
+.lede {
+  margin: 0;
+  max-width: 46rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.layout {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.searchPanel,
+.results,
+.waveformPanel {
+  background: var(--panel);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1rem 1.1rem 1.2rem;
+  animation: rise 0.8s ease both;
+}
+
+.searchPanel {
+  animation-delay: 0.05s;
+}
+
+.results {
+  animation-delay: 0.12s;
+}
+
+.waveformPanel {
+  animation-delay: 0.18s;
+}
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+legend {
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.modeRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.9rem;
+}
+
+.modeRow label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.modeRow label.active {
+  background: rgba(11, 110, 79, 0.12);
+  border-color: rgba(11, 110, 79, 0.35);
+}
+
+.field {
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.92rem;
+}
+
+input[type="number"],
+input[type="date"],
+input[type="text"] {
+  width: min(100%, 280px);
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font: inherit;
+  background: #fff;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: 0;
+  border-radius: 10px;
+  padding: 0.55rem 1rem;
+  background: var(--accent);
+  color: #fff;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.resultsHeader,
+.waveHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.resultsHeader h2,
+.waveHeader h2,
+.waveformPanel h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.4rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(27, 73, 101, 0.12);
+  color: var(--accent-2);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.55rem 0.45rem;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+tbody tr {
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+tbody tr:hover,
+tbody tr.selected {
+  background: rgba(11, 110, 79, 0.08);
+}
+
+.kindTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.kindTabs button {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.kindTabs button.active {
+  background: var(--accent-2);
+  color: #fff;
+  border-color: transparent;
+}
+
+.chartBlock {
+  margin-top: 0.5rem;
+}
+
+.chartBg {
+  fill: rgba(255, 255, 255, 0.65);
+}
+
+.axisLabel {
+  fill: var(--muted);
+  font-size: 12px;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.2rem;
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.empty,
+.note {
+  color: var(--muted);
+}
+
+.error {
+  color: var(--danger);
+}
+
+footer {
+  margin-top: 2rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 720px) {
+  .appShell {
+    padding: 1.25rem 0.9rem 2rem;
+  }
+
+  input[type="number"],
+  input[type="date"],
+  input[type="text"] {
+    width: 100%;
+  }
+}

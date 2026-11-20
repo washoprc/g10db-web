@@ -1,0 +1,30 @@
+{
+  "source": "GroupList.inf",
+  "convertedAt": "2026-11-20",
+  "groups": [
+    {
+      "id": "Ha",
+      "label": "Hα",
+      "unit": "a.u.",
+      "description": "水素バルマーα線放射"
+    },
+    {
+      "id": "DM",
+      "label": "Diamagnetism",
+      "unit": "Wb",
+      "description": "反磁性ループ信号"
+    },
+    {
+      "id": "NL",
+      "label": "Line density",
+      "unit": "m^-2",
+      "description": "線積分電子密度"
+    },
+    {
+      "id": "VCC",
+      "label": "VCC",
+      "unit": "V",
+      "description": "垂直制御／関連電圧信号"
+    }
+  ]
+}
