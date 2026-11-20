@@ -1,0 +1,31 @@
+# 学内 Docker（nginx-proxy + 外部ネットワーク shared）向けオーバーライド。
+# 使い方:
+#   docker compose -f docker-compose.yml -f docker-compose.campus.yml up -d --build
+#
+# 前提: docker network create shared 済みであること。
+
+services:
+  api:
+    environment:
+      USE_DEMO: ${USE_DEMO:-0}
+    networks:
+      - shared
+
+  web:
+    networks:
+      - shared
+
+  nginx:
+    environment:
+      VIRTUAL_HOST: ${VIRTUAL_HOST:-g10db.prc.tsukuba.ac.jp}
+      LETSENCRYPT_HOST: ${LETSENCRYPT_HOST:-g10db.prc.tsukuba.ac.jp}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL:-}
+      BASIC_AUTH_USER: ${BASIC_AUTH_USER:-g10db}
+      BASIC_AUTH_PASSWORD: ${BASIC_AUTH_PASSWORD:-}
+    networks:
+      - shared
+
+networks:
+  shared:
+    external: true
+    name: shared
