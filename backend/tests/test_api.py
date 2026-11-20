@@ -30,13 +30,28 @@ def testHealth() -> None:
 
 
 def testLatestShots() -> None:
-    """最新ショット検索。"""
+    """最新ショット検索（クラシック ShowTable パネル付き）。"""
     response = client.get("/api/shots/latest?limit=3")
     assert response.status_code == 200
     body = response.json()
     assert body["mode"] == "latest"
     assert body["count"] == 3
     assert body["items"][0]["shotNo"] is not None
+    assert len(body["groupNames"]) == 25
+    assert body["groupNames"][0] == "Main"
+    assert body["groupNames"][1] == "Coil"
+    assert body["groupNames"][-1] == "Comment"
+    assert len(body["panels"]) == 3
+    assert len(body["panels"][0]) == 25
+
+    mainCells = body["panels"][0][0]["cells"]
+    shotLinks = [c for c in mainCells if c.get("isShotLink")]
+    assert shotLinks, "Main 列にショット番号リンクが必要"
+    assert shotLinks[0]["shotNo"] == body["items"][0]["shotNo"]
+
+    coilCells = body["panels"][0][1]["cells"]
+    coilTexts = [c["text"] for c in coilCells]
+    assert any(text.startswith("CR ") for text in coilTexts), coilTexts
 
 
 def testByNumberAndDate() -> None:

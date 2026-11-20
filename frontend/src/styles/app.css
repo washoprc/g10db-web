@@ -28,7 +28,7 @@ body {
 }
 
 .appShell {
-  max-width: 1120px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 2rem 1.25rem 3rem;
 }
@@ -197,10 +197,83 @@ button:disabled {
   overflow-x: auto;
 }
 
+.showTableWrap {
+  max-width: 100%;
+  border: 1px solid #7a7a7a;
+  background: #fff;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.92rem;
+}
+
+.showTable {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+  font-family: "IBM Plex Sans JP", "IBM Plex Sans", sans-serif;
+}
+
+.showTable thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #e8eceb;
+  border: 1px solid #7a7a7a;
+  padding: 0.35rem 0.45rem;
+  text-align: center;
+  white-space: nowrap;
+  font-weight: 700;
+}
+
+.showTable td {
+  border: 1px solid #9a9a9a;
+  padding: 0.25rem 0.4rem;
+  vertical-align: top;
+  white-space: nowrap;
+  background: #fff;
+}
+
+.showTable tbody tr.selected td {
+  background: rgba(11, 110, 79, 0.1);
+}
+
+.showTable tbody tr:hover td {
+  background: rgba(11, 110, 79, 0.06);
+}
+
+.panelStack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.05rem;
+  line-height: 1.25;
+}
+
+.panelLine {
+  display: block;
+}
+
+.shotLink {
+  display: inline;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #0b4f9c;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.shotLink:hover {
+  color: #08366c;
+  transform: none;
 }
 
 th,
@@ -212,13 +285,7 @@ td {
 }
 
 tbody tr {
-  cursor: pointer;
   transition: background 0.15s ease;
-}
-
-tbody tr:hover,
-tbody tr.selected {
-  background: rgba(11, 110, 79, 0.08);
 }
 
 .kindTabs {

@@ -8,10 +8,22 @@ export type ShotRow = {
   columns: Record<string, unknown>;
 };
 
+export type PanelCell = {
+  text: string;
+  isShotLink?: boolean;
+  shotNo?: number | null;
+};
+
+export type PanelGroup = {
+  cells: PanelCell[];
+};
+
 export type ShotListResponse = {
   mode: "latest" | "byNumber" | "byDate";
   count: number;
   items: ShotRow[];
+  groupNames: string[];
+  panels: PanelGroup[][];
   demoMode: boolean;
   matchedDate?: string | null;
   closestFallback?: boolean;

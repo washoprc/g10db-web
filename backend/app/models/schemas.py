@@ -28,12 +28,28 @@ class ShotRow(BaseModel):
     columns: dict[str, Any] = Field(default_factory=dict)
 
 
+class PanelCell(BaseModel):
+    """ShowTable セル内の 1 行。"""
+
+    text: str
+    isShotLink: bool = False
+    shotNo: int | None = None
+
+
+class PanelGroup(BaseModel):
+    """1 グループ列分の縦積みセル。"""
+
+    cells: list[PanelCell] = Field(default_factory=list)
+
+
 class ShotListResponse(BaseModel):
     """ショット一覧応答。"""
 
     mode: Literal["latest", "byNumber", "byDate"]
     count: int
     items: list[ShotRow]
+    groupNames: list[str] = Field(default_factory=list)
+    panels: list[list[PanelGroup]] = Field(default_factory=list)
     demoMode: bool = False
     matchedDate: str | None = None
     closestFallback: bool = False

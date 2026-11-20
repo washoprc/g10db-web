@@ -70,7 +70,8 @@ export default function App() {
           {error && <p className="error">{error}</p>}
           {result ? (
             <ShotTable
-              items={result.items}
+              groupNames={result.groupNames}
+              panels={result.panels}
               selectedShotNo={selectedShotNo}
               onSelect={setSelectedShotNo}
             />
