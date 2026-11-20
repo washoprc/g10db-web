@@ -3,6 +3,8 @@ import createPlotlyComponent from "react-plotly.js/factory";
 import Plotly from "plotly.js-basic-dist-min";
 import {
   fetchWaveform,
+  fetchWaveformDiagnose,
+  fetchWaveformStatus,
   type WaveformKind,
   type WaveformResponse,
 } from "../api/client";
@@ -24,18 +26,74 @@ export default function WaveformViewer({ shotNo }: WaveformViewerProps) {
   const [data, setData] = useState<WaveformResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [statusWarn, setStatusWarn] = useState<string | null>(null);
+  const [diagnoseLine, setDiagnoseLine] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchWaveformStatus()
+      .then((status) => {
+        if (cancelled) return;
+        const reasons: string[] = [];
+        if (status.useDemo) {
+          reasons.push("USE_DEMO=1");
+        }
+        if (!status.ftp?.passwordSet) {
+          reasons.push("FTP_PASSWORD unset");
+        }
+        if (status.ftpProbe && !status.ftpProbe.ok) {
+          reasons.push(
+            `FTP probe failed${status.ftpProbe.error ? `: ${status.ftpProbe.error}` : ""}`,
+          );
+        }
+        if (reasons.length > 0) {
+          setStatusWarn(
+            `Waveform runtime: ${reasons.join("; ")}. Check /api/waveforms/meta/status`,
+          );
+        } else {
+          setStatusWarn(null);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setStatusWarn(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     if (shotNo == null) {
       setData(null);
+      setDiagnoseLine(null);
       return;
     }
     let cancelled = false;
     setBusy(true);
     setError(null);
+    setDiagnoseLine(null);
     fetchWaveform(shotNo, kind)
-      .then((response) => {
-        if (!cancelled) setData(response);
+      .then(async (response) => {
+        if (cancelled) return;
+        setData(response);
+        if (response.demoMode) {
+          try {
+            const diag = await fetchWaveformDiagnose(shotNo, kind);
+            if (cancelled) return;
+            const okFetch = Object.values(diag.fetchResults || {}).filter(
+              (r) => r && (r as { ok?: boolean }).ok,
+            ).length;
+            const okParse = Object.values(diag.parseResults || {}).filter(
+              (r) => r && (r as { ok?: boolean }).ok,
+            ).length;
+            setDiagnoseLine(
+              `diagnose: seriesCount=${diag.seriesCount}, wouldUseDemo=${diag.wouldUseDemo}, ` +
+                `fetchOk=${okFetch}, parseOk=${okParse}`,
+            );
+          } catch {
+            if (!cancelled) setDiagnoseLine(null);
+          }
+        }
       })
       .catch((err: Error) => {
         if (!cancelled) setError(err.message);
@@ -52,6 +110,11 @@ export default function WaveformViewer({ shotNo }: WaveformViewerProps) {
     return (
       <section className="waveformPanel">
         <h2>波形</h2>
+        {statusWarn && (
+          <p className="warnNote" role="status">
+            {statusWarn}
+          </p>
+        )}
         <p className="empty">テーブルの行を選ぶと波形を表示します。</p>
       </section>
     );
@@ -79,11 +142,21 @@ export default function WaveformViewer({ shotNo }: WaveformViewerProps) {
           ))}
         </div>
       </div>
+      {statusWarn && (
+        <p className="warnNote" role="status">
+          {statusWarn}
+        </p>
+      )}
       {busy && <p>読み込み中…</p>}
       {error && <p className="error">{error}</p>}
       {data?.note && (
         <p className={data.demoMode ? "warnNote" : "note"} role="status">
           {data.note}
+        </p>
+      )}
+      {data?.demoMode && diagnoseLine && (
+        <p className="warnNote" role="status">
+          {diagnoseLine}
         </p>
       )}
       {data && !busy && <WaveformChart data={data} />}

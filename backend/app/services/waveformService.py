@@ -31,13 +31,35 @@ from app.services.readshot import parseReadshot
 
 logger = logging.getLogger(__name__)
 
-FTP_SETUP_NOTE = (
-    "FTP からポートファイルを取得できなかったためデモ波形を返しています。"
-    "本番表示には .env で USE_DEMO=0 とし、"
-    "FTP_HOST=130.158.92.4 / FTP_USER=mwls / FTP_PASSWORD=… / "
-    "FTP_BASE_PATH=/usr2/shot を設定してください"
-    "（パスは /usr2/shot/{shot}/{port}、拡張子・Ha/DM サブディレクトリなし）。"
-)
+
+def buildFallbackNote(
+    shotNo: int,
+    kind: WaveformKind,
+    detail: str | None = None,
+) -> str:
+    """デモフォールバック時の具体的な注意文を組み立てる。"""
+    settings = getSettings()
+    reasons: list[str] = []
+    if settings.useDemo:
+        reasons.append("USE_DEMO=1")
+    if not settings.ftpHost:
+        reasons.append("FTP_HOST is empty")
+    if not settings.ftpUser:
+        reasons.append("FTP_USER is empty")
+    if not settings.ftpPassword:
+        reasons.append("FTP_PASSWORD is empty")
+    reasonText = ", ".join(reasons) if reasons else "FTP fetch/parse returned no series"
+    parts = [
+        f"Shot {shotNo} {kind}: demo waveform ({reasonText}).",
+        f"Host={settings.ftpHost or '(none)'} base={settings.ftpBasePath}.",
+    ]
+    if detail:
+        parts.append(detail)
+    parts.append(
+        "Set USE_DEMO=0 and FTP_PASSWORD in .env, then "
+        "docker compose up -d --build --force-recreate api."
+    )
+    return " ".join(parts)
 
 
 def resolveKindMeta(kind: WaveformKind) -> dict[str, str]:
@@ -279,9 +301,6 @@ def getWaveform(
             demoMode=False,
         )
 
-    note = None
-    if not settings.useDemo:
-        note = FTP_SETUP_NOTE
     return WaveformResponse(
         shotNo=shotNo,
         kind=kind,
@@ -289,8 +308,127 @@ def getWaveform(
         endMs=endMs,
         series=demoSeries(kind, startMs, endMs),
         demoMode=True,
-        note=note,
+        note=buildFallbackNote(shotNo, kind),
     )
+
+
+def waveformRuntimeStatus() -> dict[str, object]:
+    """波形ランタイムの設定・FTP 接続状態。"""
+    settings = getSettings()
+    ftp = ftpClient.ftpConfigStatus()
+    if ftpClient.isFtpConfigured():
+        probe = ftpClient.probeFtpConnection()
+    else:
+        probe = {"ok": False, "error": "FTP host/user not configured"}
+    return {
+        "useDemo": settings.useDemo,
+        "ftp": ftp,
+        "ftpProbe": probe,
+        "dataRoot": str(settings.dataRoot),
+        "configRoot": str(settings.configRoot),
+        "ftpBasePath": settings.ftpBasePath,
+    }
+
+
+def diagnoseWaveform(
+    shotNo: int,
+    kind: WaveformKind,
+    startMs: float = 0.0,
+    endMs: float = 200.0,
+) -> dict[str, object]:
+    """ショット波形の取得・パース診断（デモバッジ原因調査用）。"""
+    settings = getSettings()
+    names = channelNamesFor(kind)
+    ports: dict[str, list[str]] = {}
+    allPorts: list[str] = []
+    for name in names:
+        resolved = resolvePorts(kind, name, shotNo)
+        ports[name] = resolved
+        for port in resolved:
+            if port not in allPorts:
+                allPorts.append(port)
+
+    fetchResults: dict[str, dict[str, object]] = {}
+    parseResults: dict[str, dict[str, object]] = {}
+
+    for port in allPorts:
+        path = findLocalPortFile(shotNo, port)
+        fetchedViaFtp = False
+        if path is None and ftpClient.isFtpConfigured() and not settings.useDemo:
+            path = ftpClient.fetchPortFile(shotNo, port)
+            fetchedViaFtp = path is not None
+        if path is None:
+            fetchResults[port] = {
+                "ok": False,
+                "path": None,
+                "viaFtp": False,
+                "error": "not found locally and FTP miss/skipped",
+            }
+            parseResults[port] = {
+                "ok": False,
+                "source": None,
+                "nPoints": 0,
+                "error": "no file",
+            }
+            continue
+
+        fetchResults[port] = {
+            "ok": True,
+            "path": str(path),
+            "size": path.stat().st_size,
+            "viaFtp": fetchedViaFtp,
+        }
+        try:
+            trace = parseReadshot(path, startMs=startMs, endMs=endMs)
+            if trace is None or len(trace.values) == 0:
+                parseResults[port] = {
+                    "ok": False,
+                    "source": None,
+                    "nPoints": 0,
+                    "error": "parse returned empty",
+                }
+            else:
+                parseResults[port] = {
+                    "ok": True,
+                    "source": trace.source,
+                    "nPoints": int(len(trace.values)),
+                }
+        except Exception as exc:  # noqa: BLE001
+            parseResults[port] = {
+                "ok": False,
+                "source": None,
+                "nPoints": 0,
+                "error": str(exc),
+            }
+
+    seriesCount = 0
+    if not settings.useDemo:
+        try:
+            loaded = loadProcessedSeries(shotNo, kind, startMs, endMs)
+            seriesCount = len(loaded) if loaded else 0
+        except Exception as exc:  # noqa: BLE001
+            logger.warning("diagnose loadProcessedSeries failed: %s", exc)
+            seriesCount = 0
+
+    wouldUseDemo = bool(settings.useDemo or seriesCount == 0)
+    if ftpClient.isFtpConfigured():
+        probe = ftpClient.probeFtpConnection()
+    else:
+        probe = {"ok": False, "error": "FTP host/user not configured"}
+
+    return {
+        "shotNo": shotNo,
+        "kind": kind,
+        "useDemo": settings.useDemo,
+        "ftp": ftpClient.ftpConfigStatus(),
+        "ftpProbe": probe,
+        "ports": ports,
+        "fetchResults": fetchResults,
+        "parseResults": parseResults,
+        "seriesCount": seriesCount,
+        "wouldUseDemo": wouldUseDemo,
+        "fallbackNote": buildFallbackNote(shotNo, kind) if wouldUseDemo else None,
+    }
 
 
 def summarizeKind(kind: WaveformKind) -> dict[str, object]:

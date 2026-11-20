@@ -52,6 +52,43 @@ export type WaveformResponse = {
   note?: string | null;
 };
 
+export type WaveformFtpStatus = {
+  host: string;
+  user: string;
+  passwordSet: boolean;
+  basePath: string;
+  port?: number;
+  configured?: boolean;
+};
+
+export type WaveformFtpProbe = {
+  ok: boolean;
+  error?: string | null;
+};
+
+export type WaveformRuntimeStatus = {
+  useDemo: boolean;
+  ftp: WaveformFtpStatus;
+  ftpProbe: WaveformFtpProbe;
+  dataRoot?: string;
+  configRoot?: string;
+  ftpBasePath?: string;
+};
+
+export type WaveformDiagnose = {
+  shotNo: number;
+  kind: WaveformKind;
+  useDemo: boolean;
+  ftp: WaveformFtpStatus;
+  ftpProbe: WaveformFtpProbe;
+  ports: Record<string, string[]>;
+  fetchResults: Record<string, Record<string, unknown>>;
+  parseResults: Record<string, Record<string, unknown>>;
+  seriesCount: number;
+  wouldUseDemo: boolean;
+  fallbackNote?: string | null;
+};
+
 /**
  * JSON API を呼び出す共通ヘルパー。
  * @param path `/api/...` で始まるパス
@@ -101,4 +138,19 @@ export function fetchWaveform(
 /** 設定サマリを取得する。 */
 export function fetchConfigMeta(): Promise<Record<string, unknown>> {
   return fetchJson("/api/waveforms/meta/config");
+}
+
+/** 波形ランタイム状態（USE_DEMO / FTP）を取得する。 */
+export function fetchWaveformStatus(): Promise<WaveformRuntimeStatus> {
+  return fetchJson("/api/waveforms/meta/status");
+}
+
+/** ショット波形の取得・パース診断を取得する。 */
+export function fetchWaveformDiagnose(
+  shotNo: number,
+  kind: WaveformKind,
+): Promise<WaveformDiagnose> {
+  return fetchJson(
+    `/api/waveforms/${shotNo}/diagnose?kind=${encodeURIComponent(kind)}`,
+  );
 }

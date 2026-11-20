@@ -23,6 +23,36 @@ def isFtpConfigured() -> bool:
     return bool(settings.ftpHost and settings.ftpUser)
 
 
+def ftpConfigStatus() -> dict[str, object]:
+    """FTP 設定の要約（パスワード値は返さない）。"""
+    settings = getSettings()
+    return {
+        "host": settings.ftpHost,
+        "user": settings.ftpUser,
+        "passwordSet": bool(settings.ftpPassword),
+        "basePath": settings.ftpBasePath,
+        "port": settings.ftpPort,
+        "configured": isFtpConfigured(),
+    }
+
+
+def probeFtpConnection() -> dict[str, object]:
+    """FTP に接続・ログインし basePath へ cwd できるか確認する。"""
+    settings = getSettings()
+    if not isFtpConfigured():
+        return {"ok": False, "error": "FTP host/user not configured"}
+    try:
+        with ftplib.FTP() as ftp:
+            ftp.connect(settings.ftpHost, settings.ftpPort, timeout=settings.ftpTimeoutSec)
+            ftp.login(settings.ftpUser, settings.ftpPassword)
+            ftp.set_pasv(True)
+            base = settings.ftpBasePath.rstrip("/") or "/"
+            ftp.cwd(base)
+        return {"ok": True, "error": None}
+    except (OSError, ftplib.all_errors) as exc:
+        return {"ok": False, "error": str(exc)}
+
+
 def ensureLocalCacheDir(shotNo: int) -> Path:
     """ショット単位のローカルキャッシュディレクトリを確保する。"""
     cacheRoot = getSettings().dataRoot / "ftp_cache"
