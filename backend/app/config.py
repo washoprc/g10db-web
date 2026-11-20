@@ -1,6 +1,7 @@
 """アプリケーション設定。
 
-環境変数から PostgreSQL 接続情報とデモモード等を読み込む。
+環境変数から PostgreSQL / FTP / デモモード等を読み込む。
+シークレットは .env のみ（リポジトリにパスワードを置かない）。
 """
 
 from functools import lru_cache
@@ -10,7 +11,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    """実行時設定。"""
+    """実行時設定（コード側は lowerCamelCase）。"""
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
@@ -26,10 +27,12 @@ class Settings(BaseSettings):
     apiCorsOrigins: str = "*"
     maxShotLimit: int = 30
 
-    def __init__(self, **values):  # type: ignore[no-untyped-def]
-        # 環境変数は DB_HOST 形式。pydantic のエイリアスで受け取り、
-        # コード側は lowerCamelCase で参照する。
-        super().__init__(**values)
+    ftpHost: str = ""
+    ftpPort: int = 21
+    ftpUser: str = ""
+    ftpPassword: str = ""
+    ftpBasePath: str = "/G10DATA"
+    ftpTimeoutSec: int = 30
 
     @property
     def dsn(self) -> str:
@@ -66,6 +69,12 @@ class SettingsLoader(BaseSettings):
     CONFIG_ROOT: Path = Path("/app/config")
     API_CORS_ORIGINS: str = "*"
     MAX_SHOT_LIMIT: int = 30
+    FTP_HOST: str = ""
+    FTP_PORT: int = 21
+    FTP_USER: str = ""
+    FTP_PASSWORD: str = ""
+    FTP_BASE_PATH: str = "/G10DATA"
+    FTP_TIMEOUT_SEC: int = 30
 
     def toSettings(self) -> Settings:
         """lowerCamelCase の Settings に変換する。"""
@@ -80,6 +89,12 @@ class SettingsLoader(BaseSettings):
             configRoot=self.CONFIG_ROOT,
             apiCorsOrigins=self.API_CORS_ORIGINS,
             maxShotLimit=self.MAX_SHOT_LIMIT,
+            ftpHost=self.FTP_HOST,
+            ftpPort=self.FTP_PORT,
+            ftpUser=self.FTP_USER,
+            ftpPassword=self.FTP_PASSWORD,
+            ftpBasePath=self.FTP_BASE_PATH,
+            ftpTimeoutSec=self.FTP_TIMEOUT_SEC,
         )
 
 

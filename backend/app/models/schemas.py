@@ -35,6 +35,8 @@ class ShotListResponse(BaseModel):
     count: int
     items: list[ShotRow]
     demoMode: bool = False
+    matchedDate: str | None = None
+    closestFallback: bool = False
 
 
 WaveformKind = Literal["Ha", "DM", "NL", "VCC"]

@@ -1,22 +1,80 @@
 {
   "source": "TableList.inf",
+  "encodingSource": "CP932",
   "convertedAt": "2026-11-20",
+  "note": "TekeTekeKun create_detector_info / TableList.inf 相当。実 PHP ツリー取得後に syncFromLegacy.sh で差し替え。",
   "tables": [
     {
       "id": "Ha",
-      "channels": ["Ha_CC", "Ha_E", "Ha_W"]
+      "label": "Hα",
+      "filePattern": "{shotNo}/Ha/{channel}.dat",
+      "channels": [
+        "Ha_CC",
+        "Ha_E",
+        "Ha_W",
+        "Ha_Barrier",
+        "Ha_Anchor"
+      ]
     },
     {
       "id": "DM",
-      "channels": ["DM_CC", "DM_A"]
+      "label": "Diamagnetism",
+      "filePattern": "{shotNo}/DM/{channel}.dat",
+      "channels": [
+        "DM_CC",
+        "DM_A",
+        "DM_Barrier",
+        "DM_Plug"
+      ]
     },
     {
       "id": "NL",
-      "channels": ["NL_CC", "NL_A"]
+      "label": "Line density",
+      "filePattern": "{shotNo}/NL/{channel}.dat",
+      "channels": [
+        "NL_CC",
+        "NL_A",
+        "NLEA",
+        "NLEB",
+        "NL_Barrier"
+      ]
     },
     {
       "id": "VCC",
-      "channels": ["VCC1", "VCC2"]
+      "label": "VCC",
+      "filePattern": "{shotNo}/VCC/{channel}.dat",
+      "channels": [
+        "VCC1",
+        "VCC2",
+        "VCC3",
+        "VCC4"
+      ]
+    }
+  ],
+  "detectors": [
+    {
+      "id": "Ha",
+      "kind": "Ha",
+      "channels": ["Ha_CC", "Ha_E", "Ha_W", "Ha_Barrier", "Ha_Anchor"],
+      "coefFile": "Ha_coef/ha_coef.txt"
+    },
+    {
+      "id": "DM",
+      "kind": "DM",
+      "channels": ["DM_CC", "DM_A", "DM_Barrier", "DM_Plug"],
+      "coefFile": null
+    },
+    {
+      "id": "NL",
+      "kind": "NL",
+      "channels": ["NL_CC", "NL_A", "NLEA", "NLEB", "NL_Barrier"],
+      "coefFile": "NL/nl_coef.txt"
+    },
+    {
+      "id": "VCC",
+      "kind": "VCC",
+      "channels": ["VCC1", "VCC2", "VCC3", "VCC4"],
+      "coefFile": null
     }
   ]
 }

@@ -1,0 +1,10 @@
+# Ha 校正係数（TekeTekeKun HaGraph / Ha_coef 相当）
+# 形式: channel  scale  offset
+# scale * raw + offset
+# 注: washoprc/g10db の実 Ha_coef/* 未取得のためテンプレート。
+#     scripts/syncFromLegacy.sh で上書きすること。
+Ha_CC 1.0 0.0
+Ha_E 1.0 0.0
+Ha_W 1.0 0.0
+Ha_Barrier 1.0 0.0
+Ha_Anchor 1.0 0.0

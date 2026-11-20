@@ -1,0 +1,9 @@
+# NL 校正係数（TekeTekeKun NLupGraph2 相当）
+# 形式: channel  densityFactor  phaseOffset
+# density = densityFactor * (phase - phaseOffset)
+# 注: washoprc/g10db の実 NL/* 未取得のためテンプレート。
+NL_CC 1.0e17 0.0
+NL_A 1.0e17 0.0
+NLEA 1.0e17 0.0
+NLEB 1.0e17 0.0
+NL_Barrier 1.0e17 0.0

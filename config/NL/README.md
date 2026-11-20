@@ -1,5 +1,9 @@
 # NL
 
-線積分密度（NL）関連の校正・設定ファイルを配置します。
+旧 PHP `TekeTekeKun/NL/` の線密度校正・設定を配置する。
 
-本番移行時は既存ツリーの `NL/` をコピーしてください。
+```bash
+./scripts/syncFromLegacy.sh /path/to/g10db
+# または
+cp -a /path/to/g10db/TekeTekeKun/NL/. config/NL/
+```

@@ -43,7 +43,11 @@ def listHaCoefFiles() -> list[str]:
     directory = configRoot() / "Ha_coef"
     if not directory.is_dir():
         return []
-    return sorted(p.name for p in directory.iterdir() if p.is_file())
+    return sorted(
+        p.name
+        for p in directory.iterdir()
+        if p.is_file() and p.name.lower() not in {"readme.md", ".gitkeep"}
+    )
 
 
 def listNlFiles() -> list[str]:
@@ -51,7 +55,11 @@ def listNlFiles() -> list[str]:
     directory = configRoot() / "NL"
     if not directory.is_dir():
         return []
-    return sorted(p.name for p in directory.iterdir() if p.is_file())
+    return sorted(
+        p.name
+        for p in directory.iterdir()
+        if p.is_file() and p.name.lower() not in {"readme.md", ".gitkeep"}
+    )
 
 
 def describeConfig() -> dict[str, Any]:
@@ -59,6 +67,7 @@ def describeConfig() -> dict[str, Any]:
     return {
         "groups": loadGroupList().get("groups", []),
         "tables": loadTableList().get("tables", []),
+        "detectors": loadTableList().get("detectors", []),
         "haCoefFiles": listHaCoefFiles(),
         "nlFiles": listNlFiles(),
     }

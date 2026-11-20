@@ -1,6 +1,7 @@
 """ショット検索サービス。
 
-PHP の last.php / sn.php および日付検索に相当する固定クエリのみを実行する。
+PHP の last.php / sn.php / day.php に相当する固定クエリのみを実行する。
+日付検索は一致が無い場合に最寄り日付へフォールバックする。
 arb.php のような任意 SQL は提供しない。
 """
 
@@ -14,15 +15,6 @@ from app.db import fetchAll
 from app.models.schemas import ShotListResponse, ShotRow
 
 SearchMode = Literal["latest", "byNumber", "byDate"]
-
-# mainview の代表列（実 DB では追加列が多数ある）
-_DEMO_COLUMNS = (
-    "main__shotno",
-    "main__date",
-    "main__time",
-    "main__gas",
-    "main__comment",
-)
 
 
 def clampLimit(limit: int) -> int:
@@ -115,32 +107,85 @@ def queryByNumber(startShot: int, limit: int) -> ShotListResponse:
 
 
 def queryByDate(onDate: date, limit: int) -> ShotListResponse:
-    """指定日付のショットを取得する。"""
+    """指定日付のショットを取得する（PHP day.php 相当）。
+
+    一致が無い場合は最寄り日付のショットへフォールバックする。
+    """
     limit = clampLimit(limit)
     settings = getSettings()
     if settings.useDemo:
         items = buildDemoShots("byDate", limit=limit, onDate=onDate)
-        return ShotListResponse(mode="byDate", count=len(items), items=items, demoMode=True)
+        return ShotListResponse(
+            mode="byDate",
+            count=len(items),
+            items=items,
+            demoMode=True,
+            matchedDate=onDate.isoformat(),
+            closestFallback=False,
+        )
 
-    # main__date は date / text / timestamp の可能性があるためキャストで吸収する
-    sql = """
+    exactSql = """
         SELECT *
         FROM mainview
         WHERE CAST(main__date AS date) = %s
         ORDER BY main__shotno
         LIMIT %s
     """
-    rows = fetchAll(sql, (onDate, limit))
+    rows = fetchAll(exactSql, (onDate, limit))
+    if rows:
+        items = [normalizeRow(row) for row in rows]
+        return ShotListResponse(
+            mode="byDate",
+            count=len(items),
+            items=items,
+            demoMode=False,
+            matchedDate=onDate.isoformat(),
+            closestFallback=False,
+        )
+
+    # 最寄り日付: |date - target| 最小。同距離なら新しい日付を優先。
+    closestSql = """
+        SELECT CAST(main__date AS date) AS shot_date
+        FROM mainview
+        GROUP BY CAST(main__date AS date)
+        ORDER BY ABS(CAST(main__date AS date) - %s), CAST(main__date AS date) DESC
+        LIMIT 1
+    """
+    closestRows = fetchAll(closestSql, (onDate,))
+    if not closestRows:
+        return ShotListResponse(
+            mode="byDate",
+            count=0,
+            items=[],
+            demoMode=False,
+            matchedDate=None,
+            closestFallback=True,
+        )
+
+    closestDate = closestRows[0]["shot_date"]
+    if isinstance(closestDate, datetime):
+        closestDate = closestDate.date()
+    elif isinstance(closestDate, str):
+        closestDate = parseDateParam(closestDate)
+
+    rows = fetchAll(exactSql, (closestDate, limit))
     items = [normalizeRow(row) for row in rows]
-    return ShotListResponse(mode="byDate", count=len(items), items=items, demoMode=False)
+    return ShotListResponse(
+        mode="byDate",
+        count=len(items),
+        items=items,
+        demoMode=False,
+        matchedDate=closestDate.isoformat() if isinstance(closestDate, date) else str(closestDate),
+        closestFallback=True,
+    )
 
 
 def parseDateParam(value: str) -> date:
-    """YYYY-MM-DD または YYYYMMDD を date に変換する。"""
+    """YYYY-MM-DD / YYYYMMDD / YYMMDD を date に変換する。"""
     value = value.strip()
-    for fmt in ("%Y-%m-%d", "%Y%m%d"):
+    for fmt in ("%Y-%m-%d", "%Y%m%d", "%y%m%d"):
         try:
             return datetime.strptime(value, fmt).date()
         except ValueError:
             continue
-    raise ValueError("日付は YYYY-MM-DD または YYYYMMDD で指定してください")
+    raise ValueError("日付は YYYY-MM-DD / YYYYMMDD / YYMMDD で指定してください")

@@ -1,30 +1,64 @@
 {
   "source": "GroupList.inf",
+  "encodingSource": "CP932",
   "convertedAt": "2026-11-20",
+  "note": "washoprc/g10db が未付与のため、公開文献・既存スキャフォールド・TekeTekeKun 公開仕様から再構成。本番では scripts/syncFromLegacy.sh で実ファイルを上書きすること。",
   "groups": [
     {
       "id": "Ha",
       "label": "Hα",
       "unit": "a.u.",
-      "description": "水素バルマーα線放射"
+      "description": "水素バルマーα線放射（中央セル／東西／バリア等）",
+      "ftpDir": "Ha",
+      "processor": "ha"
     },
     {
       "id": "DM",
       "label": "Diamagnetism",
       "unit": "Wb",
-      "description": "反磁性ループ信号"
+      "description": "反磁性ループ信号",
+      "ftpDir": "DM",
+      "processor": "dm"
     },
     {
       "id": "NL",
       "label": "Line density",
       "unit": "m^-2",
-      "description": "線積分電子密度"
+      "description": "マイクロ波干渉計による線積分電子密度",
+      "ftpDir": "NL",
+      "processor": "nl"
     },
     {
       "id": "VCC",
       "label": "VCC",
       "unit": "V",
-      "description": "垂直制御／関連電圧信号"
+      "description": "垂直制御／関連電圧信号",
+      "ftpDir": "VCC",
+      "processor": "vcc"
+    },
+    {
+      "id": "Main",
+      "label": "Main sequence",
+      "unit": "",
+      "description": "ショットメタデータ（G10DB mainview 表示グループ）",
+      "ftpDir": null,
+      "processor": null
+    },
+    {
+      "id": "Heating",
+      "label": "Heating",
+      "unit": "",
+      "description": "加熱系パラメータ（ECRH / ICRF / NBI 等）",
+      "ftpDir": null,
+      "processor": null
+    },
+    {
+      "id": "Gas",
+      "label": "Gas / SMBI",
+      "unit": "",
+      "description": "ガス供給・SMBI 関連",
+      "ftpDir": null,
+      "processor": null
     }
   ]
 }

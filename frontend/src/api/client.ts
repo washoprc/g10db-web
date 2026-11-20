@@ -13,6 +13,8 @@ export type ShotListResponse = {
   count: number;
   items: ShotRow[];
   demoMode: boolean;
+  matchedDate?: string | null;
+  closestFallback?: boolean;
 };
 
 export type WaveformKind = "Ha" | "DM" | "NL" | "VCC";
@@ -64,7 +66,7 @@ export function fetchShotsByNumber(
   return fetchJson(`/api/shots/by-number?start=${start}&limit=${limit}`);
 }
 
-/** 日付でショットを取得する。 */
+/** 日付でショットを取得する（一致無し時は最寄り日付）。 */
 export function fetchShotsByDate(
   date: string,
   limit: number,
@@ -82,4 +84,9 @@ export function fetchWaveform(
   return fetchJson(
     `/api/waveforms/${shotNo}/${kind}?startMs=${startMs}&endMs=${endMs}`,
   );
+}
+
+/** 設定サマリを取得する。 */
+export function fetchConfigMeta(): Promise<Record<string, unknown>> {
+  return fetchJson("/api/waveforms/meta/config");
 }

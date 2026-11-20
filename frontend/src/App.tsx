@@ -62,6 +62,9 @@ export default function App() {
           <div className="resultsHeader">
             <h2>検索結果</h2>
             {result?.demoMode ? <span className="badge">demo mode</span> : null}
+            {result?.closestFallback ? (
+              <span className="badge">closest date → {result.matchedDate}</span>
+            ) : null}
             {result ? <span className="meta">{result.count} 件 / {result.mode}</span> : null}
           </div>
           {error && <p className="error">{error}</p>}
@@ -80,9 +83,7 @@ export default function App() {
       </main>
 
       <footer>
-        <p>
-          Plasma Research Center / University of Tsukuba — migration scaffold from PHP g10db
-        </p>
+        <p>Plasma Research Center / University of Tsukuba — FastAPI + React rebuild of g10db</p>
       </footer>
     </div>
   );

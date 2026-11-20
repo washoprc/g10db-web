@@ -18,7 +18,7 @@ app = FastAPI(
         "GAMMA 10/PDX 実験ショット・波形閲覧 API。"
         "PHP g10db からの移行実装。"
     ),
-    version="0.1.0",
+    version="0.2.0",
 )
 
 app.add_middleware(
