@@ -46,6 +46,26 @@ def loadTableList() -> dict[str, Any]:
     return loadJsonObject("TableList.json")
 
 
+def loadG10dbGroups() -> list[Any]:
+    """G10DB ShowTable 用グループ定義（group_list.json）。"""
+    data = loadJson("group_list.json")
+    return data if isinstance(data, list) else []
+
+
+def loadG10dbTableMap() -> dict[str, Any]:
+    """G10DB テーブル定義を tableName → def の辞書で返す（table_list.json）。"""
+    data = loadJson("table_list.json")
+    if not isinstance(data, list):
+        return {}
+    result: dict[str, Any] = {}
+    for entry in data:
+        if isinstance(entry, dict):
+            name = entry.get("tableName")
+            if isinstance(name, str) and name:
+                result[name] = entry
+    return result
+
+
 def listHaCoefFiles() -> list[str]:
     """Ha 校正エントリ（検出器ディレクトリ名 + 直下ファイル）の一覧。"""
     directory = configRoot() / "Ha_coef"

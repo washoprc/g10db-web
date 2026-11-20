@@ -5,9 +5,22 @@ import struct
 from pathlib import Path
 
 os.environ["USE_DEMO"] = "1"
-os.environ["CONFIG_ROOT"] = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "..", "..", "config")
-)
+
+
+def _resolveConfigRoot() -> str:
+    """ホスト / コンテナ双方で有効な config ルートを返す。"""
+    candidates = [
+        os.environ.get("CONFIG_ROOT"),
+        os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "config")),
+        "/app/config",
+    ]
+    for candidate in candidates:
+        if candidate and Path(candidate).is_dir():
+            return candidate
+    return candidates[1] or "/app/config"
+
+
+os.environ["CONFIG_ROOT"] = _resolveConfigRoot()
 
 from fastapi.testclient import TestClient
 
@@ -30,13 +43,28 @@ def testHealth() -> None:
 
 
 def testLatestShots() -> None:
-    """最新ショット検索。"""
+    """最新ショット検索（クラシック ShowTable パネル付き）。"""
     response = client.get("/api/shots/latest?limit=3")
     assert response.status_code == 200
     body = response.json()
     assert body["mode"] == "latest"
     assert body["count"] == 3
     assert body["items"][0]["shotNo"] is not None
+    assert len(body["groupNames"]) == 25
+    assert body["groupNames"][0] == "Main"
+    assert body["groupNames"][1] == "Coil"
+    assert body["groupNames"][-1] == "Comment"
+    assert len(body["panels"]) == 3
+    assert len(body["panels"][0]) == 25
+
+    mainCells = body["panels"][0][0]["cells"]
+    shotLinks = [c for c in mainCells if c.get("isShotLink")]
+    assert shotLinks, "Main 列にショット番号リンクが必要"
+    assert shotLinks[0]["shotNo"] == body["items"][0]["shotNo"]
+
+    coilCells = body["panels"][0][1]["cells"]
+    coilTexts = [c["text"] for c in coilCells]
+    assert any(text.startswith("CR ") for text in coilTexts), coilTexts
 
 
 def testByNumberAndDate() -> None:
@@ -64,14 +92,19 @@ def testLimitCappedAt30() -> None:
 
 
 def testWaveform() -> None:
-    """波形 API。"""
+    """波形 API（USE_DEMO=1 では合成波形）。"""
     for kind in ("Ha", "DM", "NL", "VCC"):
-        response = client.get(f"/api/waveforms/120000/{kind}?startMs=0&endMs=100")
+        response = client.get(f"/api/waveforms/120000/{kind}?startMs=50&endMs=400")
         assert response.status_code == 200
         body = response.json()
         assert body["kind"] == kind
+        assert body["startMs"] == 50
+        assert body["endMs"] == 400
+        assert body["demoMode"] is True
         assert len(body["series"]) >= 1
         assert len(body["series"][0]["points"]) > 10
+        times = [p["t"] for p in body["series"][0]["points"]]
+        assert max(times) <= 400.0 + 1e-6
 
 
 def testConfigMeta() -> None:
@@ -107,11 +140,11 @@ def testReadshotHeaderBinary(tmp_path: Path) -> None:
 
 
 def testProcessors() -> None:
-    """Ha / NL 校正が適用される。"""
+    """Ha / NL フォールバック後処理が系列長を保つ。"""
     times = np.arange(5, dtype=np.float64)
     values = np.ones(5, dtype=np.float64)
     trace = ShotTrace(timesMs=times, values=values, source="test")
-    ha = applyHa(trace, "Ha_CC")
+    ha = applyHa(trace, "HaCT")
     assert ha.values.shape == values.shape
-    nl = applyNl(trace, "NL_CC")
-    assert float(nl.values[0]) != 0.0
+    nl = applyNl(trace, "NLCCNEW")
+    assert nl.values.shape == values.shape

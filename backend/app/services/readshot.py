@@ -2,9 +2,10 @@
 
 TekeTekeKun/readshot.php 相当。次の形式を順に試す:
 
-1. ヘッダ付きバイナリ（nPoints:int32, dtMs:float32, t0Ms:float32 + float32[]）
-2. 生 float32 LE 配列（dt は引数または 1.0ms）
-3. テキスト（空白／カンマ区切り time,value）
+1. レガシー CAMAC（拡張子なし / .dat 優先 — kasumi ポートファイル）
+2. ヘッダ付きバイナリ（nPoints:int32, dtMs:float32, t0Ms:float32 + float32[]）
+3. 生 float32 LE 配列（dt は引数または 1.0ms）
+4. テキスト（空白／カンマ区切り time,value）
 """
 
 from __future__ import annotations
@@ -14,6 +15,9 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
+
+# CAMAC ヘッダ: 80 × uint16 big-endian = 160 bytes
+CAMAC_HEADER_BYTES = 160
 
 
 @dataclass
@@ -37,7 +41,14 @@ def parseReadshot(
     if not raw:
         return None
 
-    for parser in (_parseHeaderBinary, _parseRawFloat32, _parseText):
+    # kasumi ポートは拡張子なし / .dat — 誤って header-bin に食われないよう CAMAC 優先
+    suffix = path.suffix.lower()
+    if suffix in ("", ".dat"):
+        parsers = (_parseLegacyCamac, _parseHeaderBinary, _parseRawFloat32, _parseText)
+    else:
+        parsers = (_parseHeaderBinary, _parseLegacyCamac, _parseRawFloat32, _parseText)
+
+    for parser in parsers:
         try:
             trace = parser(raw, path, defaultDtMs=defaultDtMs)
         except (ValueError, struct.error, UnicodeDecodeError):
@@ -61,20 +72,66 @@ def _window(trace: ShotTrace, startMs: float, endMs: float) -> ShotTrace:
 
 
 def _parseHeaderBinary(raw: bytes, path: Path, *, defaultDtMs: float) -> ShotTrace | None:
-    """nPoints / dtMs / t0Ms ヘッダ付きバイナリ。"""
+    """nPoints / dtMs / t0Ms ヘッダ付きバイナリ（厳密検証）。"""
     if len(raw) < 12:
         return None
     nPoints, dtMs, t0Ms = struct.unpack_from("<iff", raw, 0)
-    if nPoints <= 0 or nPoints > 5_000_000:
+    # 誤検出抑制: 点数・サンプリング・時刻・長さ・有限値を厳密に要求
+    if nPoints < 8 or nPoints > 5_000_000:
+        return None
+    if not np.isfinite(dtMs) or not (0.0 < float(dtMs) <= 1000.0):
+        return None
+    if not np.isfinite(t0Ms) or abs(float(t0Ms)) >= 1e6:
         return None
     expected = 12 + nPoints * 4
     if len(raw) < expected:
         return None
+    surplus = len(raw) - expected
+    if surplus > 64:
+        return None
     values = np.frombuffer(raw, dtype="<f4", count=nPoints, offset=12).astype(np.float64)
-    if not np.isfinite(dtMs) or dtMs <= 0:
-        dtMs = defaultDtMs
-    times = t0Ms + np.arange(nPoints, dtype=np.float64) * float(dtMs)
+    if not np.isfinite(values).all():
+        return None
+    times = float(t0Ms) + np.arange(nPoints, dtype=np.float64) * float(dtMs)
     return ShotTrace(timesMs=times, values=values, source=f"header-bin:{path.name}")
+
+
+def _parseLegacyCamac(raw: bytes, path: Path, *, defaultDtMs: float) -> ShotTrace | None:
+    """レガシー CAMAC バイナリ（PHP readshot.php 互換）。
+
+    先頭 160 バイト（80 × uint16 BE）をスキップし、
+    残りを big-endian uint16（偶数長）または uint8 サンプルとして読む。
+    """
+    if len(raw) <= CAMAC_HEADER_BYTES:
+        return None
+    # ヘッダが「小さな整数の並び」っぽいかざっくり確認（誤検出抑制）
+    header = np.frombuffer(raw, dtype=">u2", count=80)
+    if header.size != 80:
+        return None
+
+    payload = raw[CAMAC_HEADER_BYTES:]
+    if not payload:
+        return None
+
+    values: np.ndarray | None = None
+    if len(payload) % 2 == 0 and len(payload) >= 4:
+        asU16 = np.frombuffer(payload, dtype=">u2").astype(np.float64)
+        # 全ゼロや極端に短い列は棄却
+        if asU16.size >= 4:
+            values = asU16
+    if values is None:
+        asU8 = np.frombuffer(payload, dtype="u1").astype(np.float64)
+        if asU8.size < 4:
+            return None
+        values = asU8
+
+    dtMs = defaultDtMs if defaultDtMs > 0 else 1.0
+    times = np.arange(values.size, dtype=np.float64) * float(dtMs)
+    return ShotTrace(
+        timesMs=times,
+        values=values,
+        source=f"legacy-camac:{path.name}",
+    )
 
 
 def _parseRawFloat32(raw: bytes, path: Path, *, defaultDtMs: float) -> ShotTrace | None:

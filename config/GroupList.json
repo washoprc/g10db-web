@@ -7,7 +7,7 @@
     {
       "id": "Ha",
       "label": "Hα",
-      "unit": "a.u.",
+      "unit": "uW/cm^2sr",
       "description": "水素バルマーα線放射",
       "ftpDir": "Ha",
       "processor": "ha",
@@ -24,15 +24,15 @@
     {
       "id": "DM",
       "label": "Diamagnetism",
-      "unit": "Wb",
-      "description": "反磁性ループ信号",
+      "unit": "1E-5 wb",
+      "description": "反磁性ループ信号（DMGraph で ×1e5 済み）",
       "ftpDir": "DM",
       "processor": "dm"
     },
     {
       "id": "NL",
       "label": "Line density",
-      "unit": "m^-2",
+      "unit": "1E13cm-2",
       "description": "線積分電子密度",
       "ftpDir": "NL",
       "processor": "nl",
@@ -44,8 +44,8 @@
     {
       "id": "VCC",
       "label": "VCC",
-      "unit": "V",
-      "description": "垂直制御／関連電圧信号",
+      "unit": "1E-6 torr",
+      "description": "垂直制御／関連電圧信号（VCCC00）",
       "ftpDir": "VCC",
       "processor": "vcc"
     }

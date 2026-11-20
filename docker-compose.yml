@@ -1,5 +1,7 @@
 # デフォルト: localhost 検証用（外部ネットワーク shared / VIRTUAL_HOST 不要）
 # 起動: docker compose up -d --build
+# USE_DEMO / FTP_* を .env で変えたあとは api を強制再作成:
+#   docker compose up -d --build --force-recreate api
 # 学内 nginx-proxy 連携は docker-compose.campus.yml を追加する。
 # シークレットは .env のみ（コミットしない）。
 
@@ -22,7 +24,7 @@ services:
       FTP_PORT: ${FTP_PORT:-21}
       FTP_USER: ${FTP_USER:-}
       FTP_PASSWORD: ${FTP_PASSWORD:-}
-      FTP_BASE_PATH: ${FTP_BASE_PATH:-/G10DATA}
+      FTP_BASE_PATH: ${FTP_BASE_PATH:-/usr2/shot}
       FTP_TIMEOUT_SEC: ${FTP_TIMEOUT_SEC:-30}
     volumes:
       - ./config:/app/config:ro
