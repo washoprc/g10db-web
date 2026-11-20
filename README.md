@@ -23,21 +23,32 @@ scripts/          .inf → JSON 変換、旧ツリー同期
 docker-compose.yml
 ```
 
-## 起動（localhost・推奨）
+## 起動（学内 LAN・推奨）
 
+`130.158.92.0/24` から到達できるよう、HTTP を全インタフェース（`0.0.0.0:8080`）に公開します。  
 外部ネットワーク `shared` や `VIRTUAL_HOST` は不要です。
 
 ```bash
 cp .env.example .env
-# そのまま USE_DEMO=1 で UI 確認可。実 DB / 波形なら USE_DEMO=0 と DB_* / FTP_* を設定
+# USE_DEMO=0、DB_PASSWORD / FTP_* を設定
 docker compose up -d --build
 ```
 
-ブラウザ: http://localhost:8080  
-API docs: http://localhost:8080/docs  
-Health: http://localhost:8080/api/health  
+ブラウザ（このホストが `130.158.92.11` の場合）:
 
-127.0.0.0/8 からのアクセスは Basic 認証スキップです。
+- http://130.158.92.11:8080
+- http://130.158.92.11:8080/docs
+- http://130.158.92.11:8080/api/health
+
+`localhost:8080` でも同一ホストからは開けます。  
+学内 `130.158.92.0/24` は Basic 認証スキップ、学外は Basic 認証です。
+
+特定 NIC だけに縛る場合は `.env` で:
+
+```bash
+HOST_BIND_IP=130.158.92.11
+HOST_HTTP_PORT=8080
+```
 
 ### 波形（本番・kasumi FTP）
 
@@ -132,8 +143,8 @@ cp -a /path/to/TekeTekeKun/NL/. config/NL/
 
 ## 認証モデル
 
-- nginx が `X-Forwarded-For` からクライアント IP を復元
-- `130.158.92.0/24`（およびプライベートレンジ）は Basic 認証オフ
+- 直接 LAN 公開時は `$remote_addr`、nginx-proxy 配下は `X-Forwarded-For` からクライアント IP を復元
+- `130.158.92.0/24`（および Docker ブリッジ等のプライベートレンジ）は Basic 認証オフ
 - それ以外は `BASIC_AUTH_USER` / `BASIC_AUTH_PASSWORD`（`.env` のみ）
 
 ## コーディング規約

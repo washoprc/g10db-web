@@ -1,5 +1,6 @@
-# デフォルト: localhost 検証用（外部ネットワーク shared / VIRTUAL_HOST 不要）
+# デフォルト: 学内 LAN（130.158.92.0/24）向け公開
 # 起動: docker compose up -d --build
+# ブラウザ: http://<このホストの LAN IP>:8080  （例: http://130.158.92.11:8080）
 # USE_DEMO / FTP_* を .env で変えたあとは api を強制再作成:
 #   docker compose up -d --build --force-recreate api
 # 学内 nginx-proxy 連携は docker-compose.campus.yml を追加する。
@@ -15,12 +16,12 @@ services:
       DB_NAME: ${DB_NAME:-gamma10_exp}
       DB_USER: ${DB_USER:-prc}
       DB_PASSWORD: ${DB_PASSWORD:-}
-      USE_DEMO: ${USE_DEMO:-1}
+      USE_DEMO: ${USE_DEMO:-0}
       DATA_ROOT: /data
       CONFIG_ROOT: /app/config
       API_CORS_ORIGINS: ${API_CORS_ORIGINS:-*}
       MAX_SHOT_LIMIT: "30"
-      FTP_HOST: ${FTP_HOST:-}
+      FTP_HOST: ${FTP_HOST:-130.158.92.4}
       FTP_PORT: ${FTP_PORT:-21}
       FTP_USER: ${FTP_USER:-}
       FTP_PASSWORD: ${FTP_PASSWORD:-}
@@ -50,10 +51,9 @@ services:
       - api
       - web
     environment:
-      # localhost 確認時は空でよい（nginx-proxy は使わない）
       BASIC_AUTH_USER: ${BASIC_AUTH_USER:-g10db}
       BASIC_AUTH_PASSWORD: ${BASIC_AUTH_PASSWORD:-}
-      # ローカルでは認証を実質オフにしたい場合は entrypoint がランダム生成するだけで、
-      # 127.0.0.0/8 は default.conf で認証スキップ済み
     ports:
-      - "${HOST_HTTP_PORT:-8080}:80"
+      # 学内 LAN から到達できるよう全インタフェースに bind（0.0.0.0）
+      # 特定 NIC のみにする場合: HOST_BIND_IP=130.158.92.11
+      - "${HOST_BIND_IP:-0.0.0.0}:${HOST_HTTP_PORT:-8080}:80"
