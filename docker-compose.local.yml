@@ -1,11 +1,10 @@
-# ローカル検証用（外部ネットワーク shared が無い環境）。
-# 使い方: docker compose -f docker-compose.yml -f docker-compose.local.yml up --build
-services:
-  nginx:
-    ports:
-      - "${HOST_HTTP_PORT:-8080}:80"
+# 互換用エイリアス（旧ドキュメント向け）。
+# 現在の docker-compose.yml はデフォルトで localhost 起動可能なので、
+# 追加ファイルは不要です。残しているのは既存手順の破壊を避けるため。
+#
+# 推奨:
+#   docker compose up -d --build
+# 学内:
+#   docker compose -f docker-compose.yml -f docker-compose.campus.yml up -d --build
 
-networks:
-  shared:
-    external: false
-    name: g10db-web-local
+services: {}

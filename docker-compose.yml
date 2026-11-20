@@ -1,18 +1,19 @@
-# 学内 Docker（nginx-proxy + shared ネットワーク）向け。
-# VIRTUAL_HOST は nginx-proxy が自動検出する。
+# デフォルト: localhost 検証用（外部ネットワーク shared / VIRTUAL_HOST 不要）
+# 起動: docker compose up -d --build
+# 学内 nginx-proxy 連携は docker-compose.campus.yml を追加する。
 # シークレットは .env のみ（コミットしない）。
 
 services:
   api:
     build: ./backend
-    restart: always
+    restart: unless-stopped
     environment:
       DB_HOST: ${DB_HOST:-130.158.92.41}
       DB_PORT: ${DB_PORT:-5432}
       DB_NAME: ${DB_NAME:-gamma10_exp}
       DB_USER: ${DB_USER:-prc}
       DB_PASSWORD: ${DB_PASSWORD:-}
-      USE_DEMO: ${USE_DEMO:-0}
+      USE_DEMO: ${USE_DEMO:-1}
       DATA_ROOT: /data
       CONFIG_ROOT: /app/config
       API_CORS_ORIGINS: ${API_CORS_ORIGINS:-*}
@@ -33,35 +34,24 @@ services:
       interval: 15s
       timeout: 5s
       retries: 5
-    networks:
-      - shared
 
   web:
     build: ./frontend
-    restart: always
+    restart: unless-stopped
     expose:
       - "80"
-    networks:
-      - shared
 
   nginx:
     build: ./nginx
-    restart: always
+    restart: unless-stopped
     depends_on:
       - api
       - web
     environment:
-      VIRTUAL_HOST: ${VIRTUAL_HOST:-g10db.prc.tsukuba.ac.jp}
-      LETSENCRYPT_HOST: ${LETSENCRYPT_HOST:-g10db.prc.tsukuba.ac.jp}
-      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL:-}
+      # localhost 確認時は空でよい（nginx-proxy は使わない）
       BASIC_AUTH_USER: ${BASIC_AUTH_USER:-g10db}
       BASIC_AUTH_PASSWORD: ${BASIC_AUTH_PASSWORD:-}
+      # ローカルでは認証を実質オフにしたい場合は entrypoint がランダム生成するだけで、
+      # 127.0.0.0/8 は default.conf で認証スキップ済み
     ports:
       - "${HOST_HTTP_PORT:-8080}:80"
-    networks:
-      - shared
-
-networks:
-  shared:
-    external: true
-    name: shared

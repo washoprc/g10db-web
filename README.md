@@ -23,30 +23,32 @@ scripts/          .inf → JSON 変換、旧ツリー同期
 docker-compose.yml
 ```
 
-## 起動（学内 Docker）
+## 起動（localhost・推奨）
 
-前提: nginx-proxy 用の外部ネットワーク `shared` が存在する。
+外部ネットワーク `shared` や `VIRTUAL_HOST` は不要です。
 
 ```bash
 cp .env.example .env
-# DB_PASSWORD / FTP_* / BASIC_AUTH_PASSWORD を設定
-# USE_DEMO=0 で本番
+# そのまま USE_DEMO=1 で UI 確認可。実 DB なら USE_DEMO=0 と DB_* / FTP_* を設定
 docker compose up -d --build
-```
-
-`VIRTUAL_HOST=g10db.prc.tsukuba.ac.jp` により nginx-proxy が TLS 終端します。
-
-### ローカル（shared が無い場合）
-
-```bash
-cp .env.example .env
-# USE_DEMO=1
-docker compose -f docker-compose.yml -f docker-compose.local.yml up --build
 ```
 
 ブラウザ: http://localhost:8080  
 API docs: http://localhost:8080/docs  
-Health: http://localhost:8080/api/health
+Health: http://localhost:8080/api/health  
+
+127.0.0.0/8 からのアクセスは Basic 認証スキップです。
+
+### 学内 Docker（nginx-proxy + shared）
+
+前提: `docker network create shared` 済み。
+
+```bash
+cp .env.example .env
+# USE_DEMO=0、DB_PASSWORD / FTP_* / BASIC_AUTH_PASSWORD を設定
+# VIRTUAL_HOST 等は docker-compose.campus.yml 側のデフォルトを利用
+docker compose -f docker-compose.yml -f docker-compose.campus.yml up -d --build
+```
 
 ## ローカル開発
 
