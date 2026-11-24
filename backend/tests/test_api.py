@@ -67,6 +67,46 @@ def testLatestShots() -> None:
     assert any(text.startswith("CR ") for text in coilTexts), coilTexts
 
 
+def testQueryByDateUsesMainDatetime(monkeypatch) -> None:
+    """日付検索は mainview の main__datetime で絞り込む。
+
+    main__date 列は存在しない。デモモードを外し、SQL が
+    CAST(main__datetime AS date) を使うことを確認する。
+    """
+    from datetime import date
+
+    from app.services import shotService
+
+    capturedSql: list[str] = []
+
+    def fakeFetchAll(sql: str, params=None):
+        """SQL を記録し、一致なし → 最寄り日付の順で返す。"""
+        capturedSql.append(sql)
+        if "AS shot_date" in sql:
+            return [{"shot_date": date(2026, 11, 18)}]
+        # 1 回目の完全一致は空、最寄り日付の再取得で 1 件返す
+        if len(capturedSql) == 1:
+            return []
+        return [{"main__shotno": 262100, "main__datetime": "2026-11-18 09:00:00"}]
+
+    class FakeSettings:
+        """DB 接続パスを通すための最小設定。"""
+
+        useDemo = False
+        maxShotLimit = 30
+
+    monkeypatch.setattr(shotService, "fetchAll", fakeFetchAll)
+    monkeypatch.setattr(shotService, "getSettings", lambda: FakeSettings())
+
+    response = shotService.queryByDate(date(2026, 11, 20), 10)
+    assert response.count == 1
+    assert response.closestFallback is True
+    assert response.matchedDate == "2026-11-18"
+    joined = "\n".join(capturedSql)
+    assert "main__datetime" in joined
+    assert "main__date" not in joined.replace("main__datetime", "")
+
+
 def testByNumberAndDate() -> None:
     """番号・日付検索。"""
     byNumber = client.get("/api/shots/by-number?start=100&limit=2")
