@@ -115,12 +115,58 @@ def testApplyHaCamacFormula() -> None:
     assert float(out.timesMs[1]) == pytest.approx(50.2)
 
 
+def testLoadCamacSamplesReadsToEof(tmp_path: Path) -> None:
+    """ヘッダ 160 バイトを除き、ファイル末尾まで読む。"""
+    from app.services.readshot import loadCamacSamples
+
+    nSamples = 5000
+    header = struct.pack(">" + "H" * 80, *([7] * 80))
+    samples = struct.pack(">" + "H" * nSamples, *range(nSamples))
+    path = tmp_path / "DMC500"
+    path.write_bytes(header + samples)
+
+    trace = loadCamacSamples(path, defaultDtMs=0.1)
+    assert trace is not None
+    assert len(trace.values) == nSamples
+    assert float(trace.values[0]) == 0.0
+    assert float(trace.values[-1]) == float(nSamples - 1)
+    assert float(trace.timesMs[-1]) == pytest.approx((nSamples - 1) * 0.1)
+
+
+def testResolveTimeWindowByPulseMode(monkeypatch: pytest.MonkeyPatch) -> None:
+    """表示窓はロングパルス 50–450、それ以外 50–250。"""
+    from app.services import waveformService
+
+    class Settings:
+        """DB 照会を有効にする最小設定。"""
+
+        useDemo = False
+
+    def fakeFetchAll(sql: str, params: tuple[int, ...]) -> list[dict[str, float]]:
+        shotNo = params[0]
+        if shotNo == 1:
+            return [{"time_e": 800.0}]
+        if shotNo == 2:
+            return [{"time_e": 300.0}]
+        if shotNo == 3:
+            return [{"time_e": 120.0}]
+        return []
+
+    monkeypatch.setattr(waveformService, "getSettings", lambda: Settings())
+    monkeypatch.setattr(waveformService, "fetchAll", fakeFetchAll)
+
+    assert waveformService.resolveTimeWindow(1) == (50.0, 450.0)
+    assert waveformService.resolveTimeWindow(2) == (50.0, 250.0)
+    assert waveformService.resolveTimeWindow(3) == (50.0, 250.0)
+    assert waveformService.resolveTimeWindow(4) == (50.0, 250.0)
+
+
 def testApplyDmPairProducesSeries() -> None:
-    """DM ペア処理が有限値の系列を返す（4096 点にクリップ）。"""
-    from app.services.processors import DM_SAMPLE_COUNT, applyDmPair
+    """DM ペア処理はヘッダ除去後の全点を使う。"""
+    from app.services.processors import applyDmPair
     from app.services.readshot import ShotTrace
 
-    n = 5120  # 実ファイル相当。処理は 4096 に制限される
+    n = 5120
     maxAdc = 2048.0
     t1 = ShotTrace(
         timesMs=np.arange(n, dtype=np.float64) * 0.1,
@@ -133,7 +179,7 @@ def testApplyDmPairProducesSeries() -> None:
         source="legacy-camac:DMC600",
     )
     out = applyDmPair(t1, t2)
-    assert len(out.values) == DM_SAMPLE_COUNT
+    assert len(out.values) == n
     assert np.isfinite(out.values).all()
 
 

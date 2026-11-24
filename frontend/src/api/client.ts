@@ -128,7 +128,7 @@ export function fetchShotsByDate(
 
 /**
  * 波形を取得する。
- * start/end 省略時は API 側で TekeTekeKun 相当（50–gp3.time_e 等）を使う。
+ * start/end 省略時の表示窓は 50–250 ms。ロングパルスは 50–450 ms。
  */
 export function fetchWaveform(
   shotNo: number,

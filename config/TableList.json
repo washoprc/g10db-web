@@ -31,8 +31,7 @@
       "label": "Line density",
       "filePattern": "{shotNo}/NL/{channel}.dat",
       "channels": [
-        "NLCCNEW",
-        "NLEBNEW"
+        "NLCCNEW"
       ]
     },
     {
@@ -113,8 +112,7 @@
       "id": "NL",
       "kind": "NL",
       "channels": [
-        "NLCCNEW",
-        "NLEBNEW"
+        "NLCCNEW"
       ],
       "coefFile": "NL/NLCCNEW.txt"
     },

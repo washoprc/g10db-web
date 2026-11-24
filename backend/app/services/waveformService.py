@@ -34,7 +34,7 @@ from app.services.processors import (
     loadNlConfig,
     processTrace,
 )
-from app.services.readshot import ShotTrace, parseReadshot
+from app.services.readshot import ShotTrace, loadCamacSamples, parseReadshot
 
 logger = logging.getLogger(__name__)
 
@@ -48,13 +48,13 @@ LONG_PULSE_THRESHOLD_MS = 300.0
 def resolveTimeWindow(shotNo: int) -> tuple[float, float]:
     """ショットの表示時間窓 (startMs, endMs) を返す。
 
-    TekeTekeKun 相当:
-    - start = 50
-    - short pulse (gp3.time_e ≤ 300): end = 250
-    - long pulse (gp3.time_e > 300): end = 450（表示上限。time_e 自体は使わない）
+    計算には使わない。表示だけを次で切る。
+    - 開始は常に 50 ms
+    - ロングパルス（gp3.time_e > 300）: 450 ms まで
+    - それ以外（不明・取得失敗を含む）: 250 ms まで
     """
     startMs = DEFAULT_START_MS
-    endMs = DEFAULT_END_MS_LONG
+    endMs = DEFAULT_END_MS_SHORT
     settings = getSettings()
     if settings.useDemo:
         return startMs, endMs
@@ -67,8 +67,6 @@ def resolveTimeWindow(shotNo: int) -> tuple[float, float]:
             mode = float(rows[0]["time_e"])
             if mode > LONG_PULSE_THRESHOLD_MS:
                 endMs = DEFAULT_END_MS_LONG
-            else:
-                endMs = DEFAULT_END_MS_SHORT
     except Exception as exc:  # noqa: BLE001
         logger.warning(
             "resolveTimeWindow(shotNo=%s) failed: %s — using %.0f–%.0f",
@@ -77,10 +75,6 @@ def resolveTimeWindow(shotNo: int) -> tuple[float, float]:
             startMs,
             endMs,
         )
-    # 表示は long 上限（450 ms）を超えない
-    endMs = min(float(endMs), DEFAULT_END_MS_LONG)
-    if endMs <= startMs:
-        endMs = DEFAULT_END_MS_LONG
     return startMs, endMs
 
 
@@ -155,7 +149,7 @@ def channelNamesFor(kind: WaveformKind) -> list[str]:
     fallback = {
         "Ha": ["HaCT", "HaEB", "HaWB", "Hachinosu", "Dorami", "CT25", "HaIMT"],
         "DM": ["DM_CC"],
-        "NL": ["NLCCNEW", "NLEBNEW"],
+        "NL": ["NLCCNEW"],
         "VCC": ["VCC1"],
     }
     return fallback[kind]
@@ -256,24 +250,34 @@ def _ensurePortsFetched(shotNo: int, portNames: list[str]) -> None:
         ftpClient.fetchPortFiles(shotNo, needed)
 
 
+def _readLocalTrace(path: Path, *, defaultDtMs: float = 1.0) -> ShotTrace | None:
+    """ローカルファイルを計算用に全点読む。
+
+    拡張子なし / .dat / .bin はヘッダ 160 バイトを除いた CAMAC。
+    テキストは従来パーサで、時間窓では切らない。
+    """
+    suffix = path.suffix.lower()
+    if suffix in ("", ".dat", ".bin"):
+        return loadCamacSamples(path, defaultDtMs=defaultDtMs)
+    return parseReadshot(path, startMs=-1e9, endMs=1e9, defaultDtMs=defaultDtMs)
+
+
 def _loadPortTrace(
     shotNo: int,
     port: str,
     *,
     defaultDtMs: float = 1.0,
 ) -> ShotTrace | None:
-    """ポートファイルを全点読みする（後処理側で時間軸・窓を決める）。"""
+    """ポートファイルを末尾まで読み、ヘッダ 160 バイトを除いた全点を返す。
+
+    表示時間窓では切らない。窓は後処理のあとにかける。
+    """
     path = findLocalPortFile(shotNo, port)
     if path is None and ftpClient.isFtpConfigured() and not getSettings().useDemo:
         path = ftpClient.fetchPortFile(shotNo, port)
     if path is None:
         return None
-    return parseReadshot(
-        path,
-        startMs=-1e9,
-        endMs=1e9,
-        defaultDtMs=defaultDtMs,
-    )
+    return loadCamacSamples(path, defaultDtMs=defaultDtMs)
 
 
 def _windowTrace(trace: ShotTrace, startMs: float, endMs: float) -> ShotTrace:
@@ -310,7 +314,7 @@ def _loadHaSeries(
             files = findLocalChannelFiles(shotNo, "Ha", name)
             if not files:
                 continue
-            trace = parseReadshot(files[0], startMs=-1e9, endMs=1e9, defaultDtMs=defaultDt)
+            trace = _readLocalTrace(files[0], defaultDtMs=defaultDt)
             if trace is None or len(trace.values) == 0:
                 continue
             processed = processTrace("Ha", name, trace, shotNo=shotNo, haMeta=haMeta)
@@ -458,7 +462,7 @@ def getWaveform(
 ) -> WaveformResponse:
     """指定ショット・診断の波形を返す。
 
-    start/end 未指定時は TekeTekeKun 相当（50–gp3.time_e または 50–250）。
+    start/end 未指定時の表示窓は 50–250 ms。ロングパルス（time_e > 300）は 50–450 ms。
     """
     resolvedStart, resolvedEnd = resolveTimeWindow(shotNo)
     if startMs is None:
@@ -580,7 +584,7 @@ def diagnoseWaveform(
             "viaFtp": fetchedViaFtp,
         }
         try:
-            trace = parseReadshot(path, startMs=startMs, endMs=endMs)
+            trace = _readLocalTrace(path, defaultDtMs=1.0)
             if trace is None or len(trace.values) == 0:
                 parseResults[port] = {
                     "ok": False,
