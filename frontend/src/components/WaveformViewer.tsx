@@ -7,6 +7,7 @@ import {
   fetchWaveformStatus,
   type WaveformKind,
   type WaveformResponse,
+  type WaveformSeries,
 } from "../api/client";
 
 const Plot = createPlotlyComponent(Plotly);
@@ -16,6 +17,29 @@ export type WaveformViewerProps = {
 };
 
 const KINDS: WaveformKind[] = ["Ha", "DM", "NL", "VCC"];
+
+/**
+ * 旧 TekeTekeKun SUMMARY の Ha グラフ（title=VSHA）。
+ * Hachinosu の CInfoArray[10]（port.txt の 11 列目）が HA8800。
+ */
+const VSHA_SERIES_NAME = "Hachinosu:HA8800";
+
+/**
+ * グラフに描く系列を返す。
+ * Ha は VSHA（Hachinosu:HA8800）だけ。凡例名は PHP と同じ VSHA にする。
+ * DM / NL / VCC はそのまま返す。
+ *
+ * @param data 波形 API の応答
+ * @returns 描画対象の系列
+ */
+function seriesForChart(data: WaveformResponse): WaveformSeries[] {
+  if (data.kind !== "Ha") {
+    return data.series;
+  }
+  return data.series
+    .filter((series) => series.name === VSHA_SERIES_NAME)
+    .map((series) => ({ ...series, name: "VSHA" }));
+}
 
 /**
  * Ha / DM / NL / VCC 波形ビューア（Plotly）。
@@ -128,6 +152,8 @@ export default function WaveformViewer({ shotNo }: WaveformViewerProps) {
     );
   }
 
+  const plottedSeries = data ? seriesForChart(data) : [];
+
   return (
     <section id="waveform-panel" className="waveformPanel" tabIndex={-1}>
       <div className="waveHeader">
@@ -173,9 +199,15 @@ export default function WaveformViewer({ shotNo }: WaveformViewerProps) {
           {diagnoseLine}
         </p>
       )}
-      {data && !busy && data.series.length > 0 && <WaveformChart data={data} />}
-      {data && !busy && data.series.length === 0 && (
-        <p className="empty">表示できる波形データがありません。</p>
+      {data && !busy && plottedSeries.length > 0 && (
+        <WaveformChart data={{ ...data, series: plottedSeries }} />
+      )}
+      {data && !busy && plottedSeries.length === 0 && (
+        <p className="empty">
+          {data.kind === "Ha"
+            ? "VSHA（Hachinosu:HA8800）の波形がありません。"
+            : "表示できる波形データがありません。"}
+        </p>
       )}
     </section>
   );
@@ -186,7 +218,14 @@ type ChartProps = { data: WaveformResponse };
 /** Plotly による複数系列チャート。 */
 function WaveformChart({ data }: ChartProps) {
   const yUnit = data.series[0]?.unit || "";
-  const yTitle = yUnit ? `${data.kind} [${yUnit}]` : data.kind;
+  const isVsha = data.series.length === 1 && data.series[0]?.name === "VSHA";
+  const yTitle = isVsha
+    ? yUnit
+      ? `Intensity [${yUnit}]`
+      : "Intensity"
+    : yUnit
+      ? `${data.kind} [${yUnit}]`
+      : data.kind;
 
   const plotData = useMemo(
     () =>
