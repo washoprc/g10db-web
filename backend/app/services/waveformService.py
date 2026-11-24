@@ -41,7 +41,7 @@ logger = logging.getLogger(__name__)
 # TekeTekeKun/index.php 相当の時間窓
 DEFAULT_START_MS = 50.0
 DEFAULT_END_MS_SHORT = 250.0
-DEFAULT_END_MS_LONG = 400.0
+DEFAULT_END_MS_LONG = 450.0
 LONG_PULSE_THRESHOLD_MS = 300.0
 
 
@@ -51,7 +51,7 @@ def resolveTimeWindow(shotNo: int) -> tuple[float, float]:
     TekeTekeKun 相当:
     - start = 50
     - short pulse (gp3.time_e ≤ 300): end = 250
-    - long pulse (gp3.time_e > 300): end = 400（表示上限。time_e 自体は使わない）
+    - long pulse (gp3.time_e > 300): end = 450（表示上限。time_e 自体は使わない）
     """
     startMs = DEFAULT_START_MS
     endMs = DEFAULT_END_MS_LONG
@@ -77,7 +77,7 @@ def resolveTimeWindow(shotNo: int) -> tuple[float, float]:
             startMs,
             endMs,
         )
-    # 表示は 400 ms を超えない
+    # 表示は long 上限（450 ms）を超えない
     endMs = min(float(endMs), DEFAULT_END_MS_LONG)
     if endMs <= startMs:
         endMs = DEFAULT_END_MS_LONG

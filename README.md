@@ -116,7 +116,7 @@ npm run dev
 | GET | `/api/shots/latest?limit=` | 最新ショット | `last.php` |
 | GET | `/api/shots/by-number?start=&limit=` | 番号以降 | `sn.php` |
 | GET | `/api/shots/by-date?date=&limit=` | 日付（無ければ最寄り） | `day.php` |
-| GET | `/api/waveforms/{shotNo}/{kind}` | Ha/DM/NL/VCC（省略時窓は long: 50–400 / short: 50–250） | TekeTekeKun |
+| GET | `/api/waveforms/{shotNo}/{kind}` | Ha/DM/NL/VCC（省略時窓は long: 50–450 / short: 50–250） | TekeTekeKun |
 | GET | `/api/waveforms/meta/config` | 設定サマリ | GroupList/TableList |
 
 `limit` は最大 **30**。任意 SQL エンドポイントはありません。

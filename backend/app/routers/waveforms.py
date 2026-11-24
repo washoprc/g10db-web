@@ -34,7 +34,7 @@ def diagnoseWaveform(
     ),
     endMs: float | None = Query(
         default=None,
-        description="終了時刻 [ms]。省略時は long=400 / short=250",
+        description="終了時刻 [ms]。省略時は long=450 / short=250",
     ),
 ) -> dict:
     """ショット波形の取得・パース診断。"""
@@ -51,7 +51,7 @@ def getWaveform(
     ),
     endMs: float | None = Query(
         default=None,
-        description="終了時刻 [ms]。省略時は long=400 / short=250",
+        description="終了時刻 [ms]。省略時は long=450 / short=250",
     ),
 ) -> WaveformResponse:
     """指定ショットの診断波形を返す。"""

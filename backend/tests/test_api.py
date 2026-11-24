@@ -94,17 +94,17 @@ def testLimitCappedAt30() -> None:
 def testWaveform() -> None:
     """波形 API（USE_DEMO=1 では合成波形）。"""
     for kind in ("Ha", "DM", "NL", "VCC"):
-        response = client.get(f"/api/waveforms/120000/{kind}?startMs=50&endMs=400")
+        response = client.get(f"/api/waveforms/120000/{kind}?startMs=50&endMs=450")
         assert response.status_code == 200
         body = response.json()
         assert body["kind"] == kind
         assert body["startMs"] == 50
-        assert body["endMs"] == 400
+        assert body["endMs"] == 450
         assert body["demoMode"] is True
         assert len(body["series"]) >= 1
         assert len(body["series"][0]["points"]) > 10
         times = [p["t"] for p in body["series"][0]["points"]]
-        assert max(times) <= 400.0 + 1e-6
+        assert max(times) <= 450.0 + 1e-6
 
 
 def testConfigMeta() -> None:
