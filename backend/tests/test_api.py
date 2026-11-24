@@ -66,6 +66,14 @@ def testLatestShots() -> None:
     coilTexts = [c["text"] for c in coilCells]
     assert any(text.startswith("CR ") for text in coilTexts), coilTexts
 
+    mainTexts = [c["text"] for c in mainCells]
+    dateTimes = [text for text in mainTexts if "\n" in text]
+    assert len(dateTimes) == 1, mainTexts
+    dateLine, timeLine = dateTimes[0].split("\n")
+    assert len(dateLine) == 10 and dateLine[4] == "-" and dateLine[7] == "-"
+    assert len(timeLine) == 5 and timeLine[2] == ":"
+    assert ":" not in timeLine[3:]
+
 
 def testQueryByDateUsesMainDatetime(monkeypatch) -> None:
     """日付検索は mainview の main__datetime で絞り込む。
