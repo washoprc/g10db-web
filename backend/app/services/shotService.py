@@ -315,6 +315,7 @@ def queryByDate(onDate: date, limit: int) -> ShotListResponse:
     """指定日付のショットを取得する（PHP day.php 相当）。
 
     一致が無い場合は最寄り日付のショットへフォールバックする。
+    mainview に日付専用列は無く、時刻は main__datetime（timestamp）に入っている。
     """
     limit = clampLimit(limit)
     settings = getSettings()
@@ -331,7 +332,7 @@ def queryByDate(onDate: date, limit: int) -> ShotListResponse:
     exactSql = """
         SELECT *
         FROM mainview
-        WHERE CAST(main__date AS date) = %s
+        WHERE CAST(main__datetime AS date) = %s
         ORDER BY main__shotno
         LIMIT %s
     """
@@ -348,10 +349,10 @@ def queryByDate(onDate: date, limit: int) -> ShotListResponse:
 
     # 最寄り日付: |date - target| 最小。同距離なら新しい日付を優先。
     closestSql = """
-        SELECT CAST(main__date AS date) AS shot_date
+        SELECT CAST(main__datetime AS date) AS shot_date
         FROM mainview
-        GROUP BY CAST(main__date AS date)
-        ORDER BY ABS(CAST(main__date AS date) - %s), CAST(main__date AS date) DESC
+        GROUP BY CAST(main__datetime AS date)
+        ORDER BY ABS(CAST(main__datetime AS date) - %s), CAST(main__datetime AS date) DESC
         LIMIT 1
     """
     closestRows = fetchAll(closestSql, (onDate,))
