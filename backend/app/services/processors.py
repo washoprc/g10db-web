@@ -35,12 +35,11 @@ VCC_TRIG_MS = 0.0
 VCC_CAMAC_RANGE = 2.0e-5
 VCC_UNIT = 1.0e-6
 
-# DMGraph.php 定数（size は GET を無視して 4096 固定）
+# DMGraph.php 定数。点数はファイル末尾まで使う（4096 では切らない）
 DM_MAX_ADC = 2 ** 11
 DM_CAMAC_RANGE = 0.05
 DM_SAMP_MS = 0.1
 DM_SCALE = 1.0e5
-DM_SAMPLE_COUNT = 4096
 
 
 def loadCoefMap(relativePath: str) -> dict[str, tuple[float, float]]:
@@ -341,10 +340,10 @@ def applyDmPair(trace1: ShotTrace, trace2: ShotTrace) -> ShotTrace:
     3. db/dt = v1 - ratio*ripple → 平均除去 → 積分
     4. t=50ms 付近でオフセット除去、×1e5
 
-    読み点数は DMGraph.php と同じく先頭 4096 点に制限する
-    （実ファイルは 5120 点などより長いことがある）。
+    読み点数はヘッダ 160 バイトを除いたファイル全体。
+    表示区間（50–250 ms / 50–450 ms）では切らない。
     """
-    n = min(len(trace1.values), len(trace2.values), DM_SAMPLE_COUNT)
+    n = min(len(trace1.values), len(trace2.values))
     if n < 8:
         raise ValueError(
             f"applyDmPair: too few samples n={n} "
@@ -455,11 +454,6 @@ def loadNlConfig(channel: str) -> dict[str, float | str]:
     return {}
 
 
-# NLupGraph2.php は for ($i=0; $i<=10000; $i++) のため、
-# dt=0.02 / trig=50 だと時刻上限は約 250 ms。
-NL_PHP_LOOP_MAX = 10001
-
-
 def applyNlPair(
     trace1: ShotTrace,
     trace2: ShotTrace,
@@ -471,9 +465,9 @@ def applyNlPair(
     """NLupGraph2.php 相当: atan2 位相アンラップ → 線密度。
 
     values = unwrap(atan2(ch1, ch2)) * 5.2 / (2π) - bias
-    ループ上限は PHP と同じ 10001 点（≈250 ms @ 0.02 ms）。
+    点数はヘッダ除去後のファイル全体。表示区間では切らない。
     """
-    n = min(len(trace1.values), len(trace2.values), NL_PHP_LOOP_MAX)
+    n = min(len(trace1.values), len(trace2.values))
     if n < 8:
         raise ValueError(
             f"applyNlPair: too few samples n={n} "

@@ -37,8 +37,7 @@
       "ftpDir": "NL",
       "processor": "nl",
       "detectors": [
-        "NLCCNEW",
-        "NLEBNEW"
+        "NLCCNEW"
       ]
     },
     {

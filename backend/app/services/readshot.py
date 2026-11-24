@@ -29,6 +29,40 @@ class ShotTrace:
     source: str
 
 
+def loadCamacSamples(path: Path, *, defaultDtMs: float = 1.0) -> ShotTrace | None:
+    """ポートファイルを末尾まで読み、先頭 160 バイトを除いたサンプル列を返す。
+
+    計算用の読み込み。表示時間窓では切らない。
+    ヘッダは 80 × uint16（160 バイト）。残りは big-endian uint16。
+    端数 1 バイトは不完全なサンプルとして捨てる。
+
+    Args:
+        path: ポートファイルのパス。
+        defaultDtMs: サンプル間隔 [ms]。0 以下のときは 1.0。
+
+    Returns:
+        全サンプルの ShotTrace。空、またはヘッダしか無いときは None。
+    """
+    raw = path.read_bytes()
+    if len(raw) <= CAMAC_HEADER_BYTES:
+        return None
+    payload = raw[CAMAC_HEADER_BYTES:]
+    if len(payload) % 2 == 1:
+        payload = payload[:-1]
+    if len(payload) < 4:
+        return None
+    values = np.frombuffer(payload, dtype=">u2").astype(np.float64)
+    if values.size < 2:
+        return None
+    dtMs = defaultDtMs if defaultDtMs > 0 else 1.0
+    times = np.arange(values.size, dtype=np.float64) * float(dtMs)
+    return ShotTrace(
+        timesMs=times,
+        values=values,
+        source=f"legacy-camac:{path.name}",
+    )
+
+
 def parseReadshot(
     path: Path,
     *,
