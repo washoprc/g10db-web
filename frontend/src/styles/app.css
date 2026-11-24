@@ -39,24 +39,11 @@ body {
 }
 
 .brand {
-  margin: 0 0 0.35rem;
+  margin: 0;
   font-size: clamp(2rem, 5vw, 3.4rem);
   font-weight: 700;
   letter-spacing: -0.03em;
   color: var(--accent);
-}
-
-.hero h1 {
-  margin: 0 0 0.6rem;
-  font-size: clamp(1.15rem, 2.4vw, 1.55rem);
-  font-weight: 500;
-}
-
-.lede {
-  margin: 0;
-  max-width: 46rem;
-  color: var(--muted);
-  line-height: 1.65;
 }
 
 .layout {
@@ -94,22 +81,25 @@ body {
   box-shadow: var(--shadow), 0 0 0 2px rgba(11, 110, 79, 0.35);
 }
 
-fieldset {
-  border: 0;
-  margin: 0;
-  padding: 0;
+.searchRow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
 }
 
-legend {
+.searchTitle {
+  margin: 0;
   font-weight: 700;
-  margin-bottom: 0.75rem;
+  white-space: nowrap;
 }
 
 .modeRow {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 0.5rem;
-  margin-bottom: 0.9rem;
+  margin: 0;
 }
 
 .modeRow label {
@@ -129,10 +119,27 @@ legend {
 }
 
 .field {
-  display: grid;
-  gap: 0.35rem;
-  margin-bottom: 0.75rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
   font-size: 0.92rem;
+  white-space: nowrap;
+}
+
+.searchRow input[type="number"],
+.searchRow input[type="date"] {
+  width: 11rem;
+}
+
+.searchRow .fieldLimit input {
+  width: 5.5rem;
+}
+
+.searchRow button[type="submit"] {
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
 input[type="number"],
@@ -263,6 +270,17 @@ table {
   display: block;
 }
 
+.panelDateTime {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  white-space: normal;
+}
+
+.panelDateTimeLine {
+  display: block;
+}
+
 .shotLink {
   display: inline;
   padding: 0;
@@ -372,14 +390,37 @@ footer {
   }
 }
 
-@media (max-width: 720px) {
-  .appShell {
-    padding: 1.25rem 0.9rem 2rem;
+@media (max-width: 960px) {
+  .searchRow {
+    flex-direction: column;
+    align-items: stretch;
   }
 
+  .modeRow {
+    flex-wrap: wrap;
+  }
+
+  .field {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .searchRow input[type="number"],
+  .searchRow input[type="date"],
+  .searchRow .fieldLimit input,
   input[type="number"],
   input[type="date"],
   input[type="text"] {
     width: 100%;
+  }
+
+  .searchRow button[type="submit"] {
+    width: 100%;
+  }
+}
+
+@media (max-width: 720px) {
+  .appShell {
+    padding: 1.25rem 0.9rem 2rem;
   }
 }

@@ -10,6 +10,7 @@ export type ShotSearchProps = {
 /**
  * ショット検索フォーム。
  * 最新 / 番号 / 日付の3モードに対応する。
+ * 広い画面では操作を横一列に並べ、狭い画面では縦に積む。
  */
 export default function ShotSearch({ busy, onSearch }: ShotSearchProps) {
   const [mode, setMode] = useState<SearchMode>("latest");
@@ -22,9 +23,11 @@ export default function ShotSearch({ busy, onSearch }: ShotSearchProps) {
   }
 
   return (
-    <form className="searchPanel" onSubmit={handleSubmit}>
-      <fieldset>
-        <legend>ショット検索</legend>
+    <form className="searchPanel" aria-labelledby="shot-search-title" onSubmit={handleSubmit}>
+      <div className="searchRow">
+        <p id="shot-search-title" className="searchTitle">
+          ショット検索
+        </p>
         <div className="modeRow" role="radiogroup" aria-label="検索モード">
           {(
             [
@@ -72,7 +75,7 @@ export default function ShotSearch({ busy, onSearch }: ShotSearchProps) {
           </label>
         )}
 
-        <label className="field">
+        <label className="field fieldLimit">
           件数（最大30）
           <input
             type="number"
@@ -86,7 +89,7 @@ export default function ShotSearch({ busy, onSearch }: ShotSearchProps) {
         <button type="submit" disabled={busy}>
           {busy ? "検索中…" : "検索"}
         </button>
-      </fieldset>
+      </div>
     </form>
   );
 }

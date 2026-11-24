@@ -5,6 +5,7 @@ ShowTable 用に mainview 行をグループ列パネルへ変換する。
 
 from __future__ import annotations
 
+from datetime import datetime
 from typing import Any
 
 from app.models.schemas import PanelCell, PanelGroup
@@ -196,6 +197,8 @@ class ViewPanelConverter:
             return ""
         fmt = str(field.get("format") or "")
         fieldType = str(field.get("fieldType") or "")
+        if fieldType == "datetime":
+            return formatShotDateTime(value)
         if fieldType in {"Float", "Integer", "Short"} or fmt != "":
             try:
                 number = float(value)
@@ -233,6 +236,30 @@ class ViewPanelConverter:
             return float(left) == float(right)
         except (TypeError, ValueError):
             return False
+
+
+def formatShotDateTime(value: Any) -> str:
+    """Main の実験日時を日付と時分の2行にする。秒は出さない。
+
+    Args:
+        value: timestamp、または ``YYYY-MM-DD HH:MM:SS`` 形式の文字列。
+
+    Returns:
+        ``YYYY-MM-DD\\nHH:MM``。解釈できない値はそのまま文字列化する。
+    """
+    if isinstance(value, datetime):
+        return f"{value:%Y-%m-%d}\n{value:%H:%M}"
+
+    text = str(value).strip().replace("T", " ")
+    if "." in text:
+        text = text.split(".", 1)[0]
+    parts = text.split()
+    if len(parts) < 2:
+        return text
+    hourMinute = parts[1].split(":")
+    if len(hourMinute) < 2:
+        return text
+    return f"{parts[0]}\n{hourMinute[0]}:{hourMinute[1]}"
 
 
 def buildPanelsForRows(

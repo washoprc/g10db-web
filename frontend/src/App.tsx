@@ -70,12 +70,7 @@ export default function App() {
   return (
     <div className="appShell">
       <header className="hero">
-        <p className="brand">g10db-web</p>
-        <h1>GAMMA 10 / PDX ショット・波形ビューア</h1>
-        <p className="lede">
-          旧 PHP g10db（G10DB + TekeTekeKun）を FastAPI + React に移行した閲覧画面です。
-          任意 SQL は廃止し、最新・番号・日付検索と Ha / DM / NL / VCC 波形に限定しています。
-        </p>
+        <h1 className="brand">g10db-web</h1>
       </header>
 
       <main className="layout">

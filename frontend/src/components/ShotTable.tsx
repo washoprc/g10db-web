@@ -96,6 +96,18 @@ function renderCell(
       </a>
     );
   }
+  const lines = cell.text.split("\n");
+  if (lines.length > 1) {
+    return (
+      <span key={cellIndex} className="panelLine panelDateTime">
+        {lines.map((line, lineIndex) => (
+          <span key={lineIndex} className="panelDateTimeLine">
+            {line}
+          </span>
+        ))}
+      </span>
+    );
+  }
   return (
     <span key={cellIndex} className="panelLine">
       {cell.text}
