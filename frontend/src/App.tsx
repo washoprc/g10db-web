@@ -70,7 +70,7 @@ export default function App() {
   return (
     <div className="appShell">
       <header className="hero">
-        <h1 className="brand">g10db-web</h1>
+        <h1 className="brand">G10DB</h1>
       </header>
 
       <main className="layout">
@@ -102,7 +102,7 @@ export default function App() {
       </main>
 
       <footer>
-        <p>Plasma Research Center / University of Tsukuba — FastAPI + React rebuild of g10db</p>
+        <p>Plasma Research Center / University of Tsukuba</p>
       </footer>
     </div>
   );
