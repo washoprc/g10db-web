@@ -19,7 +19,8 @@ services:
       USE_DEMO: ${USE_DEMO:-0}
       DATA_ROOT: /data
       CONFIG_ROOT: /app/config
-      API_CORS_ORIGINS: ${API_CORS_ORIGINS:-*}
+      # 同一オリジン（nginx 経由）が既定。別オリジンから呼ぶときだけカンマ区切りで明示する。`*` は API が無視する。
+      API_CORS_ORIGINS: ${API_CORS_ORIGINS:-}
       MAX_SHOT_LIMIT: "30"
       FTP_HOST: ${FTP_HOST:-130.158.92.4}
       FTP_PORT: ${FTP_PORT:-21}

@@ -1,4 +1,5 @@
-FROM python:3.12-slim
+# API コンテナ。Python 3.12.16 は 2026-10-25 のセキュリティリリース。
+FROM python:3.12.16-slim
 
 WORKDIR /app
 
