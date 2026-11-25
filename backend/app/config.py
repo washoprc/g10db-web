@@ -24,7 +24,7 @@ class Settings(BaseSettings):
     useDemo: bool = True
     dataRoot: Path = Path("/data")
     configRoot: Path = Path("/app/config")
-    apiCorsOrigins: str = "*"
+    apiCorsOrigins: str = ""
     maxShotLimit: int = 30
 
     ftpHost: str = ""
@@ -44,10 +44,18 @@ class Settings(BaseSettings):
 
     @property
     def corsOriginList(self) -> list[str]:
-        """CORS 許可オリジンの一覧。"""
-        if self.apiCorsOrigins.strip() == "*":
-            return ["*"]
-        return [o.strip() for o in self.apiCorsOrigins.split(",") if o.strip()]
+        """クロスオリジンを許可するオリジン。
+
+        空文字と `*` は許可しない。SPA は nginx 経由の同一オリジンで動くため、
+        資格情報付きで任意オリジンを反射しない。
+        """
+        origins: list[str] = []
+        for item in self.apiCorsOrigins.split(","):
+            origin = item.strip()
+            if origin == "" or origin == "*":
+                continue
+            origins.append(origin)
+        return origins
 
 
 class SettingsLoader(BaseSettings):
@@ -67,7 +75,7 @@ class SettingsLoader(BaseSettings):
     USE_DEMO: bool = True
     DATA_ROOT: Path = Path("/data")
     CONFIG_ROOT: Path = Path("/app/config")
-    API_CORS_ORIGINS: str = "*"
+    API_CORS_ORIGINS: str = ""
     MAX_SHOT_LIMIT: int = 30
     FTP_HOST: str = ""
     FTP_PORT: int = 21

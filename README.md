@@ -10,14 +10,14 @@ GAMMA 10/PDX 実験データ閲覧システム **g10db** の PHP 実装（`G10DB
 - 診断波形 **Ha / DM / NL / VCC** を FTP + readshot パース + 校正後処理で表示（旧 jpgraph 相当を Plotly 化）
 - `GroupList.inf` / `TableList.inf`（CP932）を UTF-8 JSON 化し、`Ha_coef` / `NL` を `config/` に配置
 - **任意 SQL（旧 `arb.php`）は提供しない**（固定クエリ + プレースホルダのみ）
-- 学内 `130.158.92.0/24` は認証なし、学外は Basic 認証
+- Basic 認証は未導入（入口は認証なしで公開）
 
 ## 構成
 
 ```text
 backend/          FastAPI（ショット・波形 API）
 frontend/         React + Vite + Plotly
-nginx/            学内 IP 許可 + Basic 認証 + /api プロキシ + SPA
+nginx/            /api プロキシ + SPA（Basic 認証は未導入）
 config/           GroupList.json / TableList.json / Ha_coef / NL
 scripts/          .inf → JSON 変換、旧ツリー同期
 docker-compose.yml
@@ -40,8 +40,7 @@ docker compose up -d --build
 - http://130.158.92.11:8080/docs
 - http://130.158.92.11:8080/api/health
 
-`localhost:8080` でも同一ホストからは開けます。  
-学内 `130.158.92.0/24` は Basic 認証スキップ、学外は Basic 認証です。
+`localhost:8080` でも同一ホストからは開けます。Basic 認証はまだかけていません。
 
 特定 NIC だけに縛る場合は `.env` で:
 
@@ -84,7 +83,7 @@ HOST_HTTP_PORT=8080
 
 ```bash
 cp .env.example .env
-# USE_DEMO=0、DB_PASSWORD / FTP_* / BASIC_AUTH_PASSWORD を設定
+# USE_DEMO=0、DB_PASSWORD / FTP_* を設定
 # VIRTUAL_HOST 等は docker-compose.campus.yml 側のデフォルトを利用
 docker compose -f docker-compose.yml -f docker-compose.campus.yml up -d --build
 ```
@@ -143,9 +142,8 @@ cp -a /path/to/TekeTekeKun/NL/. config/NL/
 
 ## 認証モデル
 
-- 直接 LAN 公開時は `$remote_addr`、nginx-proxy 配下は `X-Forwarded-For` からクライアント IP を復元
-- `130.158.92.0/24`（および Docker ブリッジ等のプライベートレンジ）は Basic 認証オフ
-- それ以外は `BASIC_AUTH_USER` / `BASIC_AUTH_PASSWORD`（`.env` のみ）
+- Basic 認証は未導入。入口は `auth_basic off`
+- クライアント IP は、接続元が Docker 上のプロキシ網のときだけ `X-Forwarded-For` から復元する
 
 ## コーディング規約
 

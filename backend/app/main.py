@@ -21,13 +21,16 @@ app = FastAPI(
     version="0.2.0",
 )
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=settings.corsOriginList,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+corsOrigins = settings.corsOriginList
+if corsOrigins:
+    # 明示したオリジンだけを許可する。`*` は corsOriginList が捨てる。
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=corsOrigins,
+        allow_credentials=True,
+        allow_methods=["GET", "OPTIONS"],
+        allow_headers=["Accept", "Authorization", "Content-Type"],
+    )
 
 app.include_router(health.router, prefix="/api")
 app.include_router(shots.router, prefix="/api")

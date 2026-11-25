@@ -173,6 +173,22 @@ def testNoArbitrarySqlRoute() -> None:
         assert client.get(path).status_code == 404
 
 
+def testCorsWildcardIsNotReflected() -> None:
+    """`*` と空設定は許可オリジンにせず、任意 Origin を反射しない。"""
+    from app.config import Settings
+
+    assert Settings(apiCorsOrigins="*").corsOriginList == []
+    assert Settings(apiCorsOrigins="").corsOriginList == []
+    assert Settings(apiCorsOrigins=" http://127.0.0.1:5173 , * ").corsOriginList == [
+        "http://127.0.0.1:5173",
+    ]
+
+    response = client.get("/api/health", headers={"Origin": "https://evil.example"})
+    assert response.status_code == 200
+    assert response.headers.get("access-control-allow-origin") != "https://evil.example"
+    assert response.headers.get("access-control-allow-credentials") is None
+
+
 def testReadshotHeaderBinary(tmp_path: Path) -> None:
     """readshot ヘッダ付きバイナリ。"""
     nPoints = 10
