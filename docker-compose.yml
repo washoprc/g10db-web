@@ -1,9 +1,11 @@
 # デフォルト: 学内 LAN（130.158.92.0/24）向け公開
 # 起動: docker compose up -d --build
 # ブラウザ: http://<このホストの LAN IP>:8080  （例: http://130.158.92.11:8080）
+# BASIC_AUTH_PASSWORD が空だと入口 nginx は起動しない。
+# 130.158.92.0/24 はパスワード不要。それ以外（127.0.0.1 を含む）は Basic 認証。
 # USE_DEMO / FTP_* を .env で変えたあとは api を強制再作成:
 #   docker compose up -d --build --force-recreate api
-# 学内 nginx-proxy 連携は docker-compose.campus.yml を追加する。
+# HTTPS 本番（g10db2）は docker-compose.campus.yml を追加する。ホスト 8080 は公開しない。
 # シークレットは .env のみ（コミットしない）。
 
 services:
@@ -52,9 +54,10 @@ services:
       - api
       - web
     environment:
+      # 空パスワードでは入口 nginx が起動しない。学内サブネットでもファイル自体は必要。
       BASIC_AUTH_USER: ${BASIC_AUTH_USER:-g10db}
       BASIC_AUTH_PASSWORD: ${BASIC_AUTH_PASSWORD:-}
     ports:
       # 学内 LAN から到達できるよう全インタフェースに bind（0.0.0.0）
       # 特定 NIC のみにする場合: HOST_BIND_IP=130.158.92.11
-      - "${HOST_BIND_IP:-0.0.0.0}:${HOST_HTTP_PORT:-8080}:80"
+      - "${HOST_BIND_IP:-0.0.0.0}:${HOST_HTTP_PORT:-8081}:80"
